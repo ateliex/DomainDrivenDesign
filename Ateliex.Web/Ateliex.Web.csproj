@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>Ateliex</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
+    <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
+    <ProjectReference Include="..\Ateliex.Infrastructure\Ateliex.Infrastructure.csproj" />
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cadastro\Modelos\" />
+    <Folder Include="Decisoes\Comerciais\" />
+  </ItemGroup>
+
+</Project>

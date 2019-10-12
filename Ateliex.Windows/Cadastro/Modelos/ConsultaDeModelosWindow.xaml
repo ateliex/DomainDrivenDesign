@@ -1,0 +1,38 @@
+﻿<Window
+    x:Class="Ateliex.Cadastro.Modelos.ConsultaDeModelosWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Ateliex.Cadastro.Modelos"
+    mc:Ignorable="d"
+    Title="Consulta de Modelos" Height="450" Width="800"
+    Loaded="Window_Loaded"
+    xml:lang="pt-BR"
+>
+    <Window.Resources>
+        <ResourceDictionary>
+            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ItemDeConsultaDeModeloViewModel}, CreateList=True}"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource modelosViewSource}">
+        <DataGrid 
+                x:Name="modelosDataGrid"
+                ItemsSource="{Binding}"
+                RowDetailsVisibilityMode="VisibleWhenSelected"
+                EnableRowVirtualization="True"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+            >
+            <!--<DataGrid.RowValidationRules>
+                <local:ModeloValidationRule ValidationStep="UpdatedValue"/>
+            </DataGrid.RowValidationRules>-->
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn x:Name="selectedColumn" Header="" Width="Auto" Binding="{Binding Selected}"/>
+                <DataGridTextColumn x:Name="codigoColumn" Header="Código" Width="72" Binding="{Binding Modelo.Codigo, Mode=OneWay}"/>
+                <DataGridTextColumn x:Name="nomeColumn" Header="Nome" Width="*" Binding="{Binding Modelo.Nome, Mode=OneWay}"/>
+                <DataGridTextColumn x:Name="custoDeProducaoColumn" Header="CP (R$)" Width="72" Binding="{Binding Modelo.CustoDeProducao, Mode=OneWay}" CellStyle="{StaticResource RightStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
