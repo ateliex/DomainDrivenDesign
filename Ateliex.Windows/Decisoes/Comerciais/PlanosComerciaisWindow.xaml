@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ateliex.Decisoes.Comerciais"
+        xmlns:planos="clr-namespace:Ateliex.Decisoes.Comerciais"    
         mc:Ignorable="d"
         Title="Planos Comerciais" Height="795" Width="1193" Loaded="Window_Loaded"        
         xml:lang="pt-BR"

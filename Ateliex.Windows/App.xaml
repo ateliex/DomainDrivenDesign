@@ -1,10 +1,9 @@
 ﻿<Application x:Class="Ateliex.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:Ateliex"
-             xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.DomainModel"
-             xmlns:comerciais="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.DomainModel"
+             xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.Domain"
+             xmlns:comerciais="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.Domain"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -73,12 +72,12 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <ObjectDataProvider x:Key="TipoDeCusto" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider x:Key="TipoDeCusto" MethodName="GetValues">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="comerciais:TipoDeCusto" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            <ObjectDataProvider x:Key="TipoDeRecurso" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider x:Key="TipoDeRecurso" MethodName="GetValues">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="modelos:TipoDeRecurso" />
                 </ObjectDataProvider.MethodParameters>
