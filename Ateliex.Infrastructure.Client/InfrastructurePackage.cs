@@ -35,12 +35,12 @@ namespace Ateliex
 
             //container.Register(() => new AtelieDbContext(builder.UseSqlite(connectionString).Options), Lifestyle.Singleton);
 
-            container.Register<AtelieDbContext>(Lifestyle.Singleton);
+            //container.Register<AteliexDbContext>(Lifestyle.Singleton);
         }
 
         public async Task EnsureDatabaseCreatedAsync(Container container)
         {
-            var context = container.GetInstance<AtelieDbContext>();
+            var context = container.GetInstance<AteliexDbContext>();
 
             await context.Database.MigrateAsync();
 

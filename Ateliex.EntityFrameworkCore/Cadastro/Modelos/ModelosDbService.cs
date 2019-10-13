@@ -9,9 +9,9 @@ namespace Ateliex.Cadastro.Modelos
 {
     public class ModelosDbService : IRepositorioDeModelos
     {
-        private readonly AtelieDbContext db;
+        private readonly AteliexDbContext db;
 
-        public ModelosDbService(AtelieDbContext db)
+        public ModelosDbService(AteliexDbContext db)
         {
             this.db = db;
         }

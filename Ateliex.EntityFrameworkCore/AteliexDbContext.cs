@@ -4,23 +4,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ateliex
 {
-    public class AtelieDbContext : DbContext
+    public class AteliexDbContext : DbContext
     {
 
         public DbSet<Modelo> Modelos { get; set; }
 
         public DbSet<PlanoComercial> PlanosComerciais { get; set; }
 
-        public AtelieDbContext()
+        public AteliexDbContext()
         {
 
         }
 
-        //public AtelieDbContext(DbContextOptions options)
-        //    : base(options)
-        //{
+        public AteliexDbContext(DbContextOptions options)
+            : base(options)
+        {
 
-        //}
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,7 +28,7 @@ namespace Ateliex
 
             //optionsBuilder
             //    //.UseLazyLoadingProxies()
-            //    .UseSqlite(@"Data Source=C:\Work\Atelie\src\Ateliex.Windows\Ateliex.db");
+            //    
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

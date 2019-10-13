@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Ateliex"
              xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.Domain"
              xmlns:comerciais="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.Domain"
-             StartupUri="MainWindow.xaml">
+    >
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

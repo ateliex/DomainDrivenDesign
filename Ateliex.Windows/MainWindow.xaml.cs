@@ -1,5 +1,6 @@
 ﻿using Ateliex.Cadastro.Modelos;
 using Ateliex.Decisoes.Comerciais;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
@@ -28,9 +29,13 @@ namespace Ateliex
 
         readonly Container container;
 
-        public MainWindow()
+        public IServiceProvider ServiceProvider { get; private set; }
+
+        public MainWindow(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
 
             infrastructurePackage = new InfrastructurePackage();
 
@@ -42,7 +47,7 @@ namespace Ateliex
 
             container.RegisterPackages(assemblies);
 
-            container.Verify();
+            //container.Verify();
 
             //// Build an IServiceProvider with DbContext pooling and resolve a scope factory.
             //var scopeFactory = new ServiceCollection()
@@ -73,11 +78,13 @@ namespace Ateliex
 
         private void CadastroDeModelosMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var modelosLocalService = container.GetInstance<ModelosLocalService>();
+            //var modelosLocalService = container.GetInstance<ModelosLocalService>();
 
-            var modelosWindow = new ModelosWindow(
-                modelosLocalService
-            );
+            //var modelosWindow = new ModelosWindow(
+            //    modelosLocalService
+            //);
+
+            var modelosWindow = ServiceProvider.GetRequiredService<ModelosWindow>();
 
             modelosWindow.Show();
         }

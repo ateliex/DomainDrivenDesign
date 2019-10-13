@@ -9,9 +9,9 @@ namespace Ateliex.Decisoes.Comerciais
 {
     public class PlanosComerciaisDbService : IRepositorioDePlanosComerciais
     {
-        private readonly AtelieDbContext db;
+        private readonly AteliexDbContext db;
 
-        public PlanosComerciaisDbService(AtelieDbContext db)
+        public PlanosComerciaisDbService(AteliexDbContext db)
         {
             this.db = db;
         }
