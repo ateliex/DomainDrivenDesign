@@ -91,20 +91,22 @@ namespace Ateliex
 
         private void PlanejamentoComercialMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var planosComerciaisLocalService = container.GetInstance<PlanosComerciaisLocalService>();
+            //var planosComerciaisLocalService = container.GetInstance<PlanosComerciaisLocalService>();
 
-            var modelosLocalService = container.GetInstance<ModelosLocalService>();
+            //var modelosLocalService = container.GetInstance<ModelosLocalService>();
 
             //var consultaDePlanosComerciais = container.GetInstance<IConsultaDePlanosComerciais>();
 
             //var planejamentoComercial = container.GetInstance<IPlanejamentoComercial>();
 
-            var planosComerciaisForm = new PlanosComerciaisWindow(
-                planosComerciaisLocalService,
-                modelosLocalService
+            //var planosComerciaisForm = new PlanosComerciaisWindow(
+            //    planosComerciaisLocalService,
+            //    modelosLocalService
             //consultaDePlanosComerciais,
             //planejamentoComercial
-            );
+            //);
+
+            var planosComerciaisForm = ServiceProvider.GetRequiredService<PlanosComerciaisWindow>();
 
             planosComerciaisForm.Show();
         }

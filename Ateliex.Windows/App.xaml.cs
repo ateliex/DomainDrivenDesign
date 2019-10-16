@@ -39,12 +39,13 @@ namespace Ateliex
         protected override void OnStartup(StartupEventArgs e)
         {
             var builder = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             Configuration = builder.Build();
 
             var serviceCollection = new ServiceCollection();
+
             ConfigureServices(serviceCollection);
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
@@ -61,6 +62,7 @@ namespace Ateliex
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AteliexDbContext>(options =>
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 options.UseSqlite(@"Data Source=Ateliex.db"));
 
             services.AddTransient(typeof(MainWindow));
@@ -74,6 +76,10 @@ namespace Ateliex
             services.AddTransient(typeof(ConsultaDeModelosWindow));
             
             services.AddTransient(typeof(PlanosComerciaisWindow));
+            
+            services.AddTransient(typeof(PlanosComerciaisLocalService));
+            
+            services.AddTransient(typeof(PlanosComerciaisDbService));            
         }
 
         private void InitializeContainer()
