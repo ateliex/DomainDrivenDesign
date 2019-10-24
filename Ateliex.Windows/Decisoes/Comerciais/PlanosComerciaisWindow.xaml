@@ -4,8 +4,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=System.Xaml.Extensions"
         xmlns:local="clr-namespace:Ateliex.Decisoes.Comerciais"
-        xmlns:planos="clr-namespace:Ateliex.Decisoes.Comerciais"    
+        xmlns:planos="clr-namespace:Ateliex.Decisoes.Comerciais"
+        xmlns:decisoesComerciais="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.Domain"
         mc:Ignorable="d"
         Title="Planos Comerciais" Height="795" Width="1193" Loaded="Window_Loaded"        
         xml:lang="pt-BR"
@@ -250,7 +252,7 @@
                             <!--
                             </DataGrid.Resources>-->
                             <DataGrid.Columns>
-                                <DataGridComboBoxColumn x:Name="tipoColumn" SelectedValueBinding="{Binding Tipo}" Header="Tipo" Width="Auto" MinWidth="72" ItemsSource="{Binding Source={StaticResource TipoDeCusto}}"/>
+                                <DataGridComboBoxColumn x:Name="tipoColumn" SelectedValueBinding="{Binding Tipo}" Header="Tipo" Width="Auto" MinWidth="72" ItemsSource="{Binding Source={system:EnumBindingSource {x:Type decisoesComerciais:TipoDeCusto}}, Mode=OneWay}"/>
                                 <DataGridTextColumn x:Name="descricaoColumn" Binding="{Binding Descricao}" Header="Descrição" Width="*" MinWidth="72" />
                                 <DataGridTextColumn x:Name="valorColumn" Binding="{Binding Valor, StringFormat={}{0:n2}}" Header="V (R$)" Width="72" CellStyle="{StaticResource RightStyle}"/>
                                 <DataGridTextColumn x:Name="percentualColumn" Binding="{Binding Percentual, StringFormat={}{0:n2}}" Header="P (%)" Width="72" CellStyle="{StaticResource RightStyle}"/>
@@ -304,7 +306,8 @@
                                             AutoGenerateColumns="False"
                                         >
                                             <DataGrid.Columns>
-                                                <DataGridComboBoxColumn Header="Tipo" SelectedValueBinding="{Binding Tipo}" Width="Auto" MinWidth="72" ItemsSource="{Binding Source={StaticResource TipoDeRecurso}, Mode=OneWay}"/>
+                                                <DataGrid
+                            xColumn Header="Tipo" SelectedValueBinding="{Binding Tipo}" Width="Auto" MinWidth="72" ItemsSource="{Binding Source={StaticResource TipoDeRecurso}, Mode=OneWay}"/>
                                                 <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" Width="*" MinWidth="72" />
                                                 <DataGridTextColumn Header="C (R$)" Binding="{Binding Custo, StringFormat={}{0:n2}}" Width="72" CellStyle="{StaticResource RightStyle}" />
                                                 <DataGridTextColumn Header="Unidades" Binding="{Binding Unidades}" Width="40" CellStyle="{StaticResource RightStyle}" />

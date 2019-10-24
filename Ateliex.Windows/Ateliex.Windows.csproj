@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <RootNamespace>Ateliex</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
     <ProjectReference Include="..\Ateliex.Infrastructure.Client\Ateliex.Infrastructure.Client.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
+    <ProjectReference Include="..\System.Xaml.Extensions\System.Xaml.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

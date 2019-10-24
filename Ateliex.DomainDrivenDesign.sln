@@ -28,15 +28,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration Services", "Integration Services", "{68DF77FC-14A5-4FA3-B674-828F315CCE2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Extensions", "System.Extensions\System.Extensions.csproj", "{93AB6CB7-FDA0-4C27-8486-B71AF517F704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Extensions", "System.Extensions\System.Extensions.csproj", "{93AB6CB7-FDA0-4C27-8486-B71AF517F704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.EntityFrameworkCore", "Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj", "{EAC0F879-8870-4463-9E51-E2E6E3AB159C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.EntityFrameworkCore", "Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj", "{EAC0F879-8870-4463-9E51-E2E6E3AB159C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.Infrastructure.Client", "Ateliex.Infrastructure.Client\Ateliex.Infrastructure.Client.csproj", "{9C9DCC0E-7874-4CBB-8D9F-6B7FBBA3EEC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Infrastructure.Client", "Ateliex.Infrastructure.Client\Ateliex.Infrastructure.Client.csproj", "{9C9DCC0E-7874-4CBB-8D9F-6B7FBBA3EEC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.Application", "Ateliex.Application\Ateliex.Application.csproj", "{91F47A1B-D0F2-4A24-AD80-2F8B86ADFA03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Application", "Ateliex.Application\Ateliex.Application.csproj", "{91F47A1B-D0F2-4A24-AD80-2F8B86ADFA03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.Infrastructure", "Ateliex.Infrastructure\Ateliex.Infrastructure.csproj", "{658A879E-A270-4EC6-809D-B2A80EDF7E59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Infrastructure", "Ateliex.Infrastructure\Ateliex.Infrastructure.csproj", "{658A879E-A270-4EC6-809D-B2A80EDF7E59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Xaml.Extensions", "System.Xaml.Extensions\System.Xaml.Extensions.csproj", "{8A11C388-948D-488B-8590-6C6704F3F46E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +78,10 @@ Global
 		{658A879E-A270-4EC6-809D-B2A80EDF7E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{658A879E-A270-4EC6-809D-B2A80EDF7E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{658A879E-A270-4EC6-809D-B2A80EDF7E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A11C388-948D-488B-8590-6C6704F3F46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A11C388-948D-488B-8590-6C6704F3F46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A11C388-948D-488B-8590-6C6704F3F46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A11C388-948D-488B-8590-6C6704F3F46E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{9C9DCC0E-7874-4CBB-8D9F-6B7FBBA3EEC8} = {5AB1DED7-0B42-4C4F-8225-C00571B91560}
 		{91F47A1B-D0F2-4A24-AD80-2F8B86ADFA03} = {A41C1300-B8AB-49C0-BB41-ECC7673B32A5}
 		{658A879E-A270-4EC6-809D-B2A80EDF7E59} = {5AB1DED7-0B42-4C4F-8225-C00571B91560}
+		{8A11C388-948D-488B-8590-6C6704F3F46E} = {A9924D55-581E-49F7-AF6A-E6E797FC6A7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C848A1A2-5716-4D07-8AA9-C41C4004F825}

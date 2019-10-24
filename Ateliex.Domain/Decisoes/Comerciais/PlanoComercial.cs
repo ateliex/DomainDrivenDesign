@@ -1,6 +1,7 @@
 ﻿using Ateliex.Cadastro.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -162,9 +163,11 @@ namespace Ateliex.Decisoes.Comerciais
         }
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum TipoDeCusto
     {
         Fixo,
+        [Description("Variável")]
         Variavel,
     }
 

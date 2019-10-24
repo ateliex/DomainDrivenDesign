@@ -4,8 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=System.Xaml.Extensions"
         xmlns:local="clr-namespace:Ateliex.Cadastro.Modelos"
-        xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos"
+        xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.Domain"
         mc:Ignorable="d"
         Title="Modelos" Height="795" Width="1193" Loaded="Window_Loaded"
         xml:lang="pt-BR"
@@ -83,7 +84,7 @@
                             AutoGenerateColumns="False"
                         >
                             <DataGrid.Columns>
-                                <DataGridComboBoxColumn Header="Tipo" Width="Auto" SelectedValueBinding="{Binding Tipo}" ItemsSource="{Binding Source={StaticResource TipoDeRecurso}, Mode=OneWay}"/>
+                                <DataGridComboBoxColumn Header="Tipo" Width="Auto" SelectedValueBinding="{Binding Tipo}" ItemsSource="{Binding Source={system:EnumBindingSource {x:Type modelos:TipoDeRecurso}}, Mode=OneWay}"/>
                                 <DataGridTextColumn Header="Descrição" Width="*" Binding="{Binding Descricao}" />
                                 <DataGridTextColumn Header="C (R$)" Width="72" Binding="{Binding Custo, StringFormat={}{0:n2}}" CellStyle="{StaticResource RightStyle}" />
                                 <DataGridTextColumn Header="Unidades" Width="72" Binding="{Binding Unidades}" CellStyle="{StaticResource RightStyle}" />
