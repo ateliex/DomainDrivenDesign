@@ -13,7 +13,7 @@
     >
     <Window.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type modelos:ModeloViewModel}, CreateList=True}"/>
+            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ModeloViewModel}, CreateList=True}"/>
             <CollectionViewSource x:Key="recursosViewSource" Source="{Binding Recursos, Source={StaticResource modelosViewSource}}"/>
         </ResourceDictionary>
     </Window.Resources>

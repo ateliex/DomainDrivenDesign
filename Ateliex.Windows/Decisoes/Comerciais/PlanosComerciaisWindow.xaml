@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:system="clr-namespace:System;assembly=System.Xaml.Extensions"
         xmlns:local="clr-namespace:Ateliex.Decisoes.Comerciais"
-        xmlns:planos="clr-namespace:Ateliex.Decisoes.Comerciais"
+        xmlns:planos="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.Domain"
         xmlns:decisoesComerciais="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.Domain"
         mc:Ignorable="d"
         Title="Planos Comerciais" Height="795" Width="1193" Loaded="Window_Loaded"        
@@ -14,7 +14,7 @@
     >
     <Window.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="planosComerciaisViewSource" d:DesignSource="{d:DesignInstance {x:Type planos:PlanoComercialViewModel}, CreateList=True}"/>
+            <CollectionViewSource x:Key="planosComerciaisViewSource" d:DesignSource="{d:DesignInstance {x:Type local:PlanoComercialViewModel}, CreateList=True}"/>
             <CollectionViewSource x:Key="custosViewSource" Source="{Binding Custos, Source={StaticResource planosComerciaisViewSource}}"/>
             <CollectionViewSource x:Key="itensViewSource" Source="{Binding Itens, Source={StaticResource planosComerciaisViewSource}}"/>
         </ResourceDictionary>
