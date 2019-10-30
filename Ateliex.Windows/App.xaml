@@ -2,8 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Ateliex"
-             xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.Domain"
-             xmlns:comerciais="clr-namespace:Ateliex.Decisoes.Comerciais;assembly=Ateliex.Domain"
     >
     <Application.Resources>
         <ResourceDictionary>
@@ -72,16 +70,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <ObjectDataProvider x:Key="TipoDeCusto" MethodName="GetValues">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="comerciais:TipoDeCusto" />
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-            <ObjectDataProvider x:Key="TipoDeRecurso" MethodName="GetValues">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="modelos:TipoDeRecurso" />
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
