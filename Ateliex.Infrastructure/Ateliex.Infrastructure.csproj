@@ -6,19 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
-    <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
-    <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Cadastro\Modelos\" />
     <Folder Include="Decisoes\Comerciais\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
+    <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
+    <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

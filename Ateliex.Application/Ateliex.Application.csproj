@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Ateliex</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
-    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
+    <Folder Include="Cadastro\Modelos\" />
+    <Folder Include="Decisoes\Comerciais\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cadastro\Modelos\" />
-    <Folder Include="Decisoes\Comerciais\" />
+    <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

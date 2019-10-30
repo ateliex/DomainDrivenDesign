@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Ateliex.ApplicationModel")]
-[assembly: InternalsVisibleTo("Ateliex.ApplicationModel.Tests")]
-[assembly: InternalsVisibleTo("Ateliex.DomainModel.Tests")]
+[assembly: InternalsVisibleTo("Ateliex.Application")]
+[assembly: InternalsVisibleTo("Ateliex.Application.Tests")]
+[assembly: InternalsVisibleTo("Ateliex.Domain.Tests")]
 [assembly: InternalsVisibleTo("Ateliex.EntityFrameworkCore")]
