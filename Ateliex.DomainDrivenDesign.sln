@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Application", "Atel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.EntityFrameworkCore", "Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj", "{3C3FB54C-E844-45AB-960D-8373A14646FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.Net.Http", "Ateliex.Net.Http\Ateliex.Net.Http.csproj", "{ECD8D626-23FB-44D1-9246-F6A71B5E0207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{3C3FB54C-E844-45AB-960D-8373A14646FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C3FB54C-E844-45AB-960D-8373A14646FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C3FB54C-E844-45AB-960D-8373A14646FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD8D626-23FB-44D1-9246-F6A71B5E0207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD8D626-23FB-44D1-9246-F6A71B5E0207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD8D626-23FB-44D1-9246-F6A71B5E0207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD8D626-23FB-44D1-9246-F6A71B5E0207}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{B636A62D-DC67-4525-B192-CF3941F40576} = {C045CE37-7E78-429E-9265-2956D1787A1D}
 		{D76CB69D-54B1-4F22-A66C-E4CC91E320DA} = {A41C1300-B8AB-49C0-BB41-ECC7673B32A5}
 		{3C3FB54C-E844-45AB-960D-8373A14646FD} = {89E4BB85-AE46-4E96-93C7-269794163702}
+		{ECD8D626-23FB-44D1-9246-F6A71B5E0207} = {89E4BB85-AE46-4E96-93C7-269794163702}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C848A1A2-5716-4D07-8AA9-C41C4004F825}
