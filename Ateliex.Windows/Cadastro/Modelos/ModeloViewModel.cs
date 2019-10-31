@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Ateliex.Cadastro.Modelos
 {
@@ -272,9 +273,11 @@ namespace Ateliex.Cadastro.Modelos
 
     public class ModelosObservableCollection : ExtendedObservableCollection<ModeloViewModel>
     {
-        private readonly ModelosLocalService planosComerciaisLocalService;
+        private readonly IUnitOfWork unitOfWork;
 
-        //private readonly IConsultaDeModelos consultaDeModelos;
+        private readonly IRepositorioDeModelos modelosLocalService;
+
+        private readonly IConsultaDeModelos consultaDeModelos;
 
         //private readonly IPlanejamentoComercial planejamentoComercial;
 
@@ -285,14 +288,15 @@ namespace Ateliex.Cadastro.Modelos
         }
 
         public ModelosObservableCollection(
-            ModelosLocalService planosComerciaisLocalService,
-            //IConsultaDeModelos consultaDeModelos,
+            IUnitOfWork unitOfWork,
+            IRepositorioDeModelos planosComerciaisLocalService,
+            IConsultaDeModelos consultaDeModelos,
             //IPlanejamentoComercial planejamentoComercial,
             IList<ModeloViewModel> list
         )
             : base(list)
         {
-            this.planosComerciaisLocalService = planosComerciaisLocalService;
+            this.modelosLocalService = planosComerciaisLocalService;
 
             //this.consultaDeModelos = consultaDeModelos;
 
@@ -332,7 +336,7 @@ namespace Ateliex.Cadastro.Modelos
 
             viewModel.model = model;
 
-            await planosComerciaisLocalService.Add(model);
+            await modelosLocalService.Add(model);
 
             //viewModel.Itens.planoComercial = viewModel;
 
@@ -341,7 +345,7 @@ namespace Ateliex.Cadastro.Modelos
 
         protected override async void OnRemoveItem(ModeloViewModel viewModel)
         {
-            await planosComerciaisLocalService.Remove(viewModel.model);
+            await modelosLocalService.Remove(viewModel.model);
 
             base.OnRemoveItem(viewModel);
         }
@@ -350,7 +354,7 @@ namespace Ateliex.Cadastro.Modelos
         {
             try
             {
-                await planosComerciaisLocalService.SaveChanges();
+                await unitOfWork.Commit();
 
                 SetStatus($"Modelo salvo com sucesso.");
             }

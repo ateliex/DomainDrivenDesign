@@ -1,13 +1,12 @@
-﻿using SimpleInjector;
-using SimpleInjector.Packaging;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Ateliex.Decisoes.Comerciais
 {
-    public class PlanosComerciaisPackage : IPackage
+    public class PlanosComerciaisPackage
     {
-        public void RegisterServices(Container container)
+        public void RegisterServices(IServiceCollection services)
         {
-            container.Register<PlanosComerciaisLocalService>();
+            services.AddTransient<PlanosComerciaisDbService>();
 
             //container.Register<PlanosComerciaisHttpService>();
         }

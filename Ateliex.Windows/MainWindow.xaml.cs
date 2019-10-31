@@ -1,8 +1,6 @@
 ﻿using Ateliex.Cadastro.Modelos;
 using Ateliex.Decisoes.Comerciais;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleInjector;
-using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +25,6 @@ namespace Ateliex
     {
         readonly InfrastructurePackage infrastructurePackage;
 
-        readonly Container container;
-
         public IServiceProvider ServiceProvider { get; private set; }
 
         public MainWindow(IServiceProvider serviceProvider)
@@ -39,13 +35,7 @@ namespace Ateliex
 
             infrastructurePackage = new InfrastructurePackage();
 
-            container = new Container();
-
             //container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            container.RegisterPackages(assemblies);
 
             //container.Verify();
 

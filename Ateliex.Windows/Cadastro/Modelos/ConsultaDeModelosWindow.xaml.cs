@@ -19,12 +19,17 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ConsultaDeModelosWindow : Window
     {
-        private readonly ModelosLocalService modelosLocalService;
+        private readonly IConsultaDeModelos consultaDeModelos;
+
+        private readonly IRepositorioDeModelos modelosLocalService;
 
         public ConsultaDeModelosWindow(
-            ModelosLocalService modelosLocalService
+            IConsultaDeModelos consultaDeModelos,
+            IRepositorioDeModelos modelosLocalService
         )
         {
+            this.consultaDeModelos = consultaDeModelos;
+
             this.modelosLocalService = modelosLocalService;
 
             InitializeComponent();
@@ -32,7 +37,7 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosLocalService.ObtemObservavelDeModelos();
+            var modelos = await consultaDeModelos.ObtemObservavelDeModelos();
 
             var list = modelos.Select(p => ItemDeConsultaDeModeloViewModel.From(p, selecteds)).ToList();
 

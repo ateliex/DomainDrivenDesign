@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,21 +21,26 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ModelosWindow
     {
-        private readonly ModelosLocalService modelosLocalService;
+        private readonly IUnitOfWork unitOfWork;
 
-        //private readonly IConsultaDeModelos consultaDeModelos;
+        private readonly IRepositorioDeModelos modelosLocalService;
+
+        private readonly IConsultaDeModelos consultaDeModelos;
 
         //private readonly IPlanejamentoComercial planejamentoComercial;
 
         public ModelosWindow(
-            ModelosLocalService modelosLocalService
-        //IConsultaDeModelos consultaDeModelos,
-        //IPlanejamentoComercial planejamentoComercial
+            IUnitOfWork unitOfWork,
+            IRepositorioDeModelos modelosLocalService,
+            IConsultaDeModelos consultaDeModelos
+            //IPlanejamentoComercial planejamentoComercial
         )
         {
+            this.unitOfWork = unitOfWork;
+            
             this.modelosLocalService = modelosLocalService;
 
-            //this.consultaDeModelos = consultaDeModelos;
+            this.consultaDeModelos = consultaDeModelos;
 
             //this.planejamentoComercial = planejamentoComercial;
 
@@ -43,13 +49,14 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosLocalService.ObtemObservavelDeModelos();
+            var modelos = await consultaDeModelos.ObtemObservavelDeModelos();
 
             var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
 
             var observableCollection = new ModelosObservableCollection(
+                unitOfWork,
                 modelosLocalService,
-                //consultaDeModelos,
+                consultaDeModelos,
                 //planejamentoComercial,
                 list
             );

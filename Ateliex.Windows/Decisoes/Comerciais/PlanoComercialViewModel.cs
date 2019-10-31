@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Ateliex.Decisoes.Comerciais
 {
@@ -537,7 +538,9 @@ namespace Ateliex.Decisoes.Comerciais
 
     public class PlanosComerciaisObservableCollection : ExtendedObservableCollection<PlanoComercialViewModel>
     {
-        private readonly PlanosComerciaisLocalService planosComerciaisLocalService;
+        private readonly IUnitOfWork unitOfWork;
+
+        private readonly IRepositorioDePlanosComerciais planosComerciaisLocalService;
 
         //private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
 
@@ -550,13 +553,16 @@ namespace Ateliex.Decisoes.Comerciais
         }
 
         public PlanosComerciaisObservableCollection(
-            PlanosComerciaisLocalService planosComerciaisLocalService,
+            IUnitOfWork unitOfWork,
+            IRepositorioDePlanosComerciais planosComerciaisLocalService,
             //IConsultaDePlanosComerciais consultaDePlanosComerciais,
             //IPlanejamentoComercial planejamentoComercial,
             IList<PlanoComercialViewModel> list
         )
             : base(list)
         {
+            this.unitOfWork = unitOfWork;
+            
             this.planosComerciaisLocalService = planosComerciaisLocalService;
 
             //this.consultaDePlanosComerciais = consultaDePlanosComerciais;
@@ -616,7 +622,7 @@ namespace Ateliex.Decisoes.Comerciais
         {
             try
             {
-                await planosComerciaisLocalService.SaveChanges();
+                await unitOfWork.Commit();
 
                 SetStatus($"PlanoComercial salvo com sucesso.");
             }

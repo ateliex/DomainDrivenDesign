@@ -10,4 +10,9 @@
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cadastro\Modelos\" />
+    <Folder Include="Decisoes\Comerciais\" />
+  </ItemGroup>
+
 </Project>

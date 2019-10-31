@@ -7,13 +7,30 @@ using System.Threading.Tasks;
 
 namespace Ateliex.Decisoes.Comerciais
 {
-    public class PlanosComerciaisDbService : IRepositorioDePlanosComerciais
+    public class PlanosComerciaisDbService : IConsultaDePlanosComerciais, IRepositorioDePlanosComerciais
     {
         private readonly AteliexDbContext db;
 
         public PlanosComerciaisDbService(AteliexDbContext db)
         {
             this.db = db;
+        }
+
+        public RespostaDeConsultaDePlanosComerciais ConsultaPlanosComerciais(ParametrosDeConsultaDePlanosComerciais parametros)
+        {
+            var resposta = new RespostaDeConsultaDePlanosComerciais();
+
+            var items = new List<ItemDeConsultaDePlanosComerciais>();
+
+            items.Add(new ItemDeConsultaDePlanosComerciais { Codigo = "PC01", Nome = "Plano 01" });
+
+            items.Add(new ItemDeConsultaDePlanosComerciais { Codigo = "PC02", Nome = "Plano 02" });
+
+            items.Add(new ItemDeConsultaDePlanosComerciais { Codigo = "PC03", Nome = "Plano 03" });
+
+            resposta.Items = items.ToArray();
+
+            return resposta;
         }
 
         public async Task SaveChanges()

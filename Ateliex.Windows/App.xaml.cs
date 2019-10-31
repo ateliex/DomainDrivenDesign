@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 
 namespace Ateliex
@@ -62,24 +63,25 @@ namespace Ateliex
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AteliexDbContext>(options =>
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 options.UseSqlite(@"Data Source=Ateliex.db"));
+
+            services.AddTransient(typeof(IUnitOfWork), typeof(TransactionScopeManager));
 
             services.AddTransient(typeof(MainWindow));
 
-            services.AddTransient(typeof(ModelosLocalService));
-
-            services.AddTransient(typeof(ModelosDbService));
+            services.AddTransient(typeof(IRepositorioDeModelos), typeof(ModelosDbService));            
+            
+            services.AddTransient(typeof(IConsultaDeModelos), typeof(ModelosDbService));            
 
             services.AddTransient(typeof(ModelosWindow));
             
             services.AddTransient(typeof(ConsultaDeModelosWindow));
             
             services.AddTransient(typeof(PlanosComerciaisWindow));
-            
-            services.AddTransient(typeof(PlanosComerciaisLocalService));
-            
-            services.AddTransient(typeof(PlanosComerciaisDbService));            
+
+            services.AddTransient(typeof(IRepositorioDePlanosComerciais), typeof(PlanosComerciaisDbService));
+
+            services.AddTransient(typeof(IConsultaDePlanosComerciais), typeof(PlanosComerciaisDbService));
         }
 
         private void InitializeContainer()

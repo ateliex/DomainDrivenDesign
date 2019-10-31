@@ -1,13 +1,13 @@
-﻿using SimpleInjector;
-using SimpleInjector.Packaging;
+﻿
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ateliex.Cadastro.Modelos
 {
-    public class ModelosPackage : IPackage
+    public class ModelosPackage
     {
-        public void RegisterServices(Container container)
+        public void RegisterServices(IServiceCollection services)
         {
-            container.Register<ModelosLocalService>();
+            services.AddTransient<ModelosDbService>();
 
             //container.Register<ModelosHttpService>();
         }

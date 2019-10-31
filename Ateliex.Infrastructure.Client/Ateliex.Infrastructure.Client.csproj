@@ -12,8 +12,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
-    <PackageReference Include="SimpleInjector" Version="4.7.1" />
-    <PackageReference Include="SimpleInjector.Packaging" Version="4.7.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
     <PackageReference Include="System.Reactive" Version="4.2.0" />
   </ItemGroup>
 

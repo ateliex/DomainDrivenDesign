@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimpleInjector;
-using SimpleInjector.Packaging;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
 using System.Net.Http;
@@ -10,10 +9,15 @@ using System.Transactions;
 
 namespace Ateliex
 {
-    public class InfrastructurePackage : IPackage
+    public class InfrastructurePackage
     {
-        public void RegisterServices(Container container)
+        public IServiceProvider ServiceProvider { get; private set; }
+
+        private void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AteliexDbContext>(options =>
+                options.UseSqlite(@"Data Source=Ateliex.db"));
+
             HttpClient client = new HttpClient();
 
             //var baseAdresse = ConfigurationManager.AppSettings["AtelieBaseAddress"].ToString();
@@ -25,7 +29,9 @@ namespace Ateliex
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            container.RegisterInstance(client);
+            services.AddSingleton(client);
+
+            ServiceProvider = services.BuildServiceProvider();
 
             //
 
@@ -38,13 +44,18 @@ namespace Ateliex
             //container.Register<AteliexDbContext>(Lifestyle.Singleton);
         }
 
-        public async Task EnsureDatabaseCreatedAsync(Container container)
+        public async Task EnsureDatabaseCreatedAsync(IServiceCollection services)
         {
-            var context = container.GetInstance<AteliexDbContext>();
+            var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
 
-            await context.Database.MigrateAsync();
+            using (var serviceScope = serviceScopeFactory.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
 
-            //await context.Database.EnsureCreatedAsync();
+                await dbContext.Database.EnsureCreatedAsync();
+
+                await dbContext.Database.MigrateAsync();
+            }
         }
     }
 }
