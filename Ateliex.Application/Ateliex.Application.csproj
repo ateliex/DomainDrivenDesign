@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cadastro\Modelos\" />
-    <Folder Include="Decisoes\Comerciais\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>

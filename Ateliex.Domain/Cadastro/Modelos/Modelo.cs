@@ -90,7 +90,7 @@ namespace Ateliex.Cadastro.Modelos
             }
         }
 
-        public Recurso(Modelo modelo, TipoDeRecurso tipo, string descricao, decimal custo, int quantiade)
+        public Recurso(Modelo modelo, TipoDeRecurso tipo, string descricao, decimal custo, int unidades)
         {
             Modelo = modelo;
 
@@ -100,7 +100,7 @@ namespace Ateliex.Cadastro.Modelos
 
             Custo = custo;
 
-            Unidades = quantiade;
+            Unidades = unidades;
         }
 
         public void DefineTipo(TipoDeRecurso tipo)

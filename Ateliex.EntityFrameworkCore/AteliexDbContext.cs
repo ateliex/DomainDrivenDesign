@@ -6,7 +6,6 @@ namespace Ateliex
 {
     public class AteliexDbContext : DbContext
     {
-
         public DbSet<Modelo> Modelos { get; set; }
 
         public DbSet<PlanoComercial> PlanosComerciais { get; set; }
@@ -179,6 +178,9 @@ namespace Ateliex
 
             //modelBuilder.Entity<ItemDePlanoComercial>()
             //    .OwnsOne(p => p.CustoDeProducao);
+
+            modelBuilder.Entity<Recurso>()
+                .HasKey(p => new { p.ModeloCodigo, p.Descricao });
 
             modelBuilder.Entity<Custo>()
                 .HasKey(p => new { p.PlanoComercialCodigo, p.Descricao });
