@@ -35,7 +35,19 @@ namespace Ateliex.Cadastro.Modelos
 
         public RespostaDeConsultaDeModelos ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
         {
-            throw new NotImplementedException();
+            var resposta = new RespostaDeConsultaDeModelos();
+
+            var items = new List<ItemDeConsultaDeModelos>();
+
+            items.Add(new ItemDeConsultaDeModelos { Codigo = "TM01", Nome = "Tati Model 01" });
+
+            items.Add(new ItemDeConsultaDeModelos { Codigo = "TM02", Nome = "Tati Model 02" });
+
+            items.Add(new ItemDeConsultaDeModelos { Codigo = "TM03", Nome = "Tati Model 03" });
+
+            resposta.Items = items.ToArray();
+
+            return resposta;
         }
     }
 }
