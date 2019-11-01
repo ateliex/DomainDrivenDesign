@@ -540,11 +540,7 @@ namespace Ateliex.Decisoes.Comerciais
     {
         private readonly IUnitOfWork unitOfWork;
 
-        private readonly IRepositorioDePlanosComerciais planosComerciaisLocalService;
-
-        //private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
-
-        //private readonly IPlanejamentoComercial planejamentoComercial;
+        private readonly PlanosComerciaisService planosComerciaisService;
 
         public PlanosComerciaisObservableCollection()
             : base()
@@ -553,21 +549,12 @@ namespace Ateliex.Decisoes.Comerciais
         }
 
         public PlanosComerciaisObservableCollection(
-            IUnitOfWork unitOfWork,
-            IRepositorioDePlanosComerciais planosComerciaisLocalService,
-            //IConsultaDePlanosComerciais consultaDePlanosComerciais,
-            //IPlanejamentoComercial planejamentoComercial,
+            PlanosComerciaisService planosComerciaisService,
             IList<PlanoComercialViewModel> list
         )
             : base(list)
         {
-            this.unitOfWork = unitOfWork;
-            
-            this.planosComerciaisLocalService = planosComerciaisLocalService;
-
-            //this.consultaDePlanosComerciais = consultaDePlanosComerciais;
-
-            //this.planejamentoComercial = planejamentoComercial;
+            this.planosComerciaisService = planosComerciaisService;
         }
 
         public PlanosComerciaisObservableCollection(IList<PlanoComercialViewModel> list)
@@ -604,7 +591,7 @@ namespace Ateliex.Decisoes.Comerciais
 
             viewModel.model = model;
 
-            await planosComerciaisLocalService.Add(model);
+            await planosComerciaisService.Add(model);
 
             //viewModel.Itens.planoComercial = viewModel;
 
@@ -613,7 +600,7 @@ namespace Ateliex.Decisoes.Comerciais
 
         protected override async void OnRemoveItem(PlanoComercialViewModel viewModel)
         {
-            await planosComerciaisLocalService.Remove(viewModel.model);
+            await planosComerciaisService.Remove(viewModel.model);
 
             base.OnRemoveItem(viewModel);
         }

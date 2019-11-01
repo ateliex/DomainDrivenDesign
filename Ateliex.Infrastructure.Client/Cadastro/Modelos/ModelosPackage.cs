@@ -7,6 +7,8 @@ namespace Ateliex.Cadastro.Modelos
     {
         public void RegisterServices(IServiceCollection services)
         {
+            services.AddTransient<ModelosService>();
+
             services.AddTransient<ModelosDbService>();
 
             //container.Register<ModelosHttpService>();

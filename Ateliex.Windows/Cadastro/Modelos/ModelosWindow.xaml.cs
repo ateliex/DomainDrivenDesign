@@ -21,43 +21,25 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ModelosWindow
     {
-        private readonly IUnitOfWork unitOfWork;
-
-        private readonly IRepositorioDeModelos modelosLocalService;
-
-        private readonly IConsultaDeModelos consultaDeModelos;
-
-        //private readonly IPlanejamentoComercial planejamentoComercial;
+        private readonly ModelosService modelosService;
 
         public ModelosWindow(
-            IUnitOfWork unitOfWork,
-            IRepositorioDeModelos modelosLocalService,
-            IConsultaDeModelos consultaDeModelos
-            //IPlanejamentoComercial planejamentoComercial
+            ModelosService modelosService
         )
         {
-            this.unitOfWork = unitOfWork;
-            
-            this.modelosLocalService = modelosLocalService;
-
-            this.consultaDeModelos = consultaDeModelos;
-
-            //this.planejamentoComercial = planejamentoComercial;
+            this.modelosService = modelosService;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await consultaDeModelos.ObtemObservavelDeModelos();
+            var modelos = await modelosService.ObtemObservavelDeModelos();
 
             var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
 
             var observableCollection = new ModelosObservableCollection(
-                unitOfWork,
-                modelosLocalService,
-                consultaDeModelos,
-                //planejamentoComercial,
+                modelosService,
                 list
             );
 

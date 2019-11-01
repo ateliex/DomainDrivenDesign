@@ -19,18 +19,13 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ConsultaDeModelosWindow : Window
     {
-        private readonly IConsultaDeModelos consultaDeModelos;
-
-        private readonly IRepositorioDeModelos modelosLocalService;
+        private readonly ModelosService consultaDeModelos;
 
         public ConsultaDeModelosWindow(
-            IConsultaDeModelos consultaDeModelos,
-            IRepositorioDeModelos modelosLocalService
+            ModelosService consultaDeModelos
         )
         {
             this.consultaDeModelos = consultaDeModelos;
-
-            this.modelosLocalService = modelosLocalService;
 
             InitializeComponent();
         }

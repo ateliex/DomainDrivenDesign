@@ -24,11 +24,11 @@ namespace Ateliex.Cadastro.Modelos
 
         // GET: api/Modelos
         [HttpGet]
-        public RespostaDeConsultaDeModelos Get()
+        public async Task<RespostaDeConsultaDeModelos> Get()
         {
             var parametros = new ParametrosDeConsultaDeModelos();
 
-            var resposta = consultaDeModelos.ConsultaModelos(parametros);
+            var resposta = await consultaDeModelos.ConsultaModelos(parametros);
 
             return resposta;
         }

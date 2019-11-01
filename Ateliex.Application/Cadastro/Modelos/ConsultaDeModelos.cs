@@ -7,7 +7,7 @@ namespace Ateliex.Cadastro.Modelos
 {
     public interface IConsultaDeModelos
     {
-        RespostaDeConsultaDeModelos ConsultaModelos(ParametrosDeConsultaDeModelos parametros);
+        Task<RespostaDeConsultaDeModelos> ConsultaModelos(ParametrosDeConsultaDeModelos parametros);
 
         Task<IEnumerable<Modelo>> ObtemObservavelDeModelos();
     }

@@ -7,7 +7,7 @@ namespace Ateliex.Decisoes.Comerciais
 {
     public interface IConsultaDePlanosComerciais
     {
-        RespostaDeConsultaDePlanosComerciais ConsultaPlanosComerciais(ParametrosDeConsultaDePlanosComerciais parametros);
+        Task<RespostaDeConsultaDePlanosComerciais> ConsultaPlanosComerciais(ParametrosDeConsultaDePlanosComerciais parametros);
 
         Task<IEnumerable<PlanoComercial>> ObtemObservavelDePlanosComerciais();
     }

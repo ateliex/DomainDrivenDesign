@@ -16,7 +16,7 @@ namespace Ateliex.Decisoes.Comerciais
             this.db = db;
         }
 
-        public RespostaDeConsultaDePlanosComerciais ConsultaPlanosComerciais(ParametrosDeConsultaDePlanosComerciais parametros)
+        public async Task<RespostaDeConsultaDePlanosComerciais> ConsultaPlanosComerciais(ParametrosDeConsultaDePlanosComerciais parametros)
         {
             var resposta = new RespostaDeConsultaDePlanosComerciais();
 
@@ -30,7 +30,7 @@ namespace Ateliex.Decisoes.Comerciais
 
             resposta.Items = items.ToArray();
 
-            return resposta;
+            return await Task.FromResult(resposta);
         }
 
         public async Task SaveChanges()

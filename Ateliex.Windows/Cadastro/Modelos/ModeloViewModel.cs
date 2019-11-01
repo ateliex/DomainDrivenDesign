@@ -273,11 +273,7 @@ namespace Ateliex.Cadastro.Modelos
 
     public class ModelosObservableCollection : ExtendedObservableCollection<ModeloViewModel>
     {
-        private readonly IUnitOfWork unitOfWork;
-
-        private readonly IRepositorioDeModelos modelosLocalService;
-
-        private readonly IConsultaDeModelos consultaDeModelos;
+        private readonly ModelosService modelosService;
 
         //private readonly IPlanejamentoComercial planejamentoComercial;
 
@@ -288,19 +284,20 @@ namespace Ateliex.Cadastro.Modelos
         }
 
         public ModelosObservableCollection(
-            IUnitOfWork unitOfWork,
-            IRepositorioDeModelos planosComerciaisLocalService,
-            IConsultaDeModelos consultaDeModelos,
-            //IPlanejamentoComercial planejamentoComercial,
+            ModelosService modelosService
+        )
+            : base()
+        {
+            this.modelosService = modelosService;
+        }
+
+        public ModelosObservableCollection(
+            ModelosService modelosService,
             IList<ModeloViewModel> list
         )
             : base(list)
         {
-            this.modelosLocalService = planosComerciaisLocalService;
-
-            //this.consultaDeModelos = consultaDeModelos;
-
-            //this.planejamentoComercial = planejamentoComercial;
+            this.modelosService = modelosService;
         }
 
         public ModelosObservableCollection(IList<ModeloViewModel> list)
@@ -336,7 +333,7 @@ namespace Ateliex.Cadastro.Modelos
 
             viewModel.model = model;
 
-            await modelosLocalService.Add(model);
+            await modelosService.Add(model);
 
             //viewModel.Itens.planoComercial = viewModel;
 
@@ -345,7 +342,7 @@ namespace Ateliex.Cadastro.Modelos
 
         protected override async void OnRemoveItem(ModeloViewModel viewModel)
         {
-            await modelosLocalService.Remove(viewModel.model);
+            await modelosService.Remove(viewModel.model);
 
             base.OnRemoveItem(viewModel);
         }
@@ -354,7 +351,7 @@ namespace Ateliex.Cadastro.Modelos
         {
             try
             {
-                await unitOfWork.Commit();
+                //await unitOfWork.Commit();
 
                 SetStatus($"Modelo salvo com sucesso.");
             }

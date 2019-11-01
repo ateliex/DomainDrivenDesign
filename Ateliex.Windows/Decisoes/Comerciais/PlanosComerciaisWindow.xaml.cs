@@ -22,58 +22,30 @@ namespace Ateliex.Decisoes.Comerciais
     /// </summary>
     public partial class PlanosComerciaisWindow
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly PlanosComerciaisService planosComerciaisService;
 
-        private readonly IRepositorioDePlanosComerciais planosComerciaisLocalService;
-
-        private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
-
-        private readonly IConsultaDeModelos consultaDeModelos;
-
-        private readonly IRepositorioDeModelos modelosLocalService;
-
-        //private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
-
-        //private readonly IPlanejamentoComercial planejamentoComercial;
+        private readonly ModelosService modelosService;
 
         public PlanosComerciaisWindow(
-            IUnitOfWork unitOfWork,
-            IRepositorioDePlanosComerciais planosComerciaisLocalService,
-            IConsultaDePlanosComerciais consultaDePlanosComerciais,
-            IConsultaDeModelos consultaDeModelos,
-            IRepositorioDeModelos modelosLocalService
-        //IConsultaDePlanosComerciais consultaDePlanosComerciais,
-        //IPlanejamentoComercial planejamentoComercial
+            PlanosComerciaisService planosComerciaisService,
+            ModelosService modelosService
         )
         {
-            this.unitOfWork = unitOfWork;
+            this.planosComerciaisService = planosComerciaisService;
 
-            this.planosComerciaisLocalService = planosComerciaisLocalService;
-            
-            this.consultaDePlanosComerciais = consultaDePlanosComerciais;
-
-            this.consultaDeModelos = consultaDeModelos;
-
-            this.modelosLocalService = modelosLocalService;
-
-            //this.consultaDePlanosComerciais = consultaDePlanosComerciais;
-
-            //this.planejamentoComercial = planejamentoComercial;
+            this.modelosService = modelosService;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var planosComerciais = await consultaDePlanosComerciais.ObtemObservavelDePlanosComerciais();
+            var planosComerciais = await planosComerciaisService.ObtemObservavelDePlanosComerciais();
 
             var list = planosComerciais.Select(p => PlanoComercialViewModel.From(p)).ToList();
 
             var observableCollection = new PlanosComerciaisObservableCollection(
-                unitOfWork,
-                planosComerciaisLocalService,                
-                //consultaDePlanosComerciais,
-                //planejamentoComercial,
+                planosComerciaisService,                
                 list
             );
 
@@ -110,8 +82,7 @@ namespace Ateliex.Decisoes.Comerciais
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)
         {
             var consultaDeModelosWindow = new ConsultaDeModelosWindow(
-                consultaDeModelos,
-                modelosLocalService
+                modelosService
             );
 
             var selecteds = GetSelectedItens();

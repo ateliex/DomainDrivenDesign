@@ -69,9 +69,9 @@ namespace Ateliex
 
             services.AddTransient(typeof(MainWindow));
 
-            services.AddTransient(typeof(IRepositorioDeModelos), typeof(ModelosDbService));            
-            
-            services.AddTransient(typeof(IConsultaDeModelos), typeof(ModelosDbService));            
+            services.AddTransient<ModelosService>();
+
+            services.AddTransient<ModelosDbService>();
 
             services.AddTransient(typeof(ModelosWindow));
             
@@ -79,9 +79,9 @@ namespace Ateliex
             
             services.AddTransient(typeof(PlanosComerciaisWindow));
 
-            services.AddTransient(typeof(IRepositorioDePlanosComerciais), typeof(PlanosComerciaisDbService));
+            services.AddTransient<PlanosComerciaisService>();
 
-            services.AddTransient(typeof(IConsultaDePlanosComerciais), typeof(PlanosComerciaisDbService));
+            services.AddTransient<PlanosComerciaisDbService>();
         }
 
         private void InitializeContainer()

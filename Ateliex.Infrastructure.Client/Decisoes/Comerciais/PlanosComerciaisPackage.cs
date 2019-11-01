@@ -6,6 +6,8 @@ namespace Ateliex.Decisoes.Comerciais
     {
         public void RegisterServices(IServiceCollection services)
         {
+            services.AddTransient<PlanosComerciaisService>();
+
             services.AddTransient<PlanosComerciaisDbService>();
 
             //container.Register<PlanosComerciaisHttpService>();

@@ -16,7 +16,7 @@ namespace Ateliex.Cadastro.Modelos
             this.db = db;
         }
 
-        public RespostaDeConsultaDeModelos ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
+        public async Task<RespostaDeConsultaDeModelos> ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
         {
             var resposta = new RespostaDeConsultaDeModelos();
 
@@ -30,7 +30,7 @@ namespace Ateliex.Cadastro.Modelos
 
             resposta.Items = items.ToArray();
 
-            return resposta;
+            return await Task.FromResult(resposta);
         }
 
         public async Task SaveChanges()
@@ -123,7 +123,7 @@ namespace Ateliex.Cadastro.Modelos
             {
                 // TODO: Tratar erros de persistência aqui.
 
-                throw new ApplicationException("Erro em Planos Comerciais.", ex);
+                throw new ApplicationException("Erro ao obter modelos.", ex);
             }
         }
     }
