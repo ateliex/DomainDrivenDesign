@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ateliex.Cadastro.Modelos
 {
-    [Route("[controller]")]
+    [Route("cadastro/[controller]")]
     [ApiController]
     public class ModelosController : ControllerBase
     {
@@ -42,9 +42,9 @@ namespace Ateliex.Cadastro.Modelos
 
         // POST: api/Modelos
         [HttpPost]
-        public RespostaDeCadastroDeModelo Post(SolicitacaoDeCadastroDeModelo solicitacao)
+        public async Task<RespostaDeCadastroDeModelo> Post(SolicitacaoDeCadastroDeModelo solicitacao)
         {
-            var resposta = cadastroDeModelos.CadastraModelo(solicitacao);
+            var resposta = await cadastroDeModelos.CadastraModelo(solicitacao);
 
             return resposta;
         }

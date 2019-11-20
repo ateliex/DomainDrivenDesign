@@ -62,26 +62,9 @@ namespace Ateliex
 
         private void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AteliexDbContext>(options =>
-                options.UseSqlite(@"Data Source=Ateliex.db"));
-
-            services.AddTransient(typeof(IUnitOfWork), typeof(TransactionScopeManager));
-
-            services.AddTransient(typeof(MainWindow));
-
-            services.AddTransient<ModelosService>();
-
-            services.AddTransient<ModelosDbService>();
-
-            services.AddTransient(typeof(ModelosWindow));
+            services.AddWindows();
             
-            services.AddTransient(typeof(ConsultaDeModelosWindow));
-            
-            services.AddTransient(typeof(PlanosComerciaisWindow));
-
-            services.AddTransient<PlanosComerciaisService>();
-
-            services.AddTransient<PlanosComerciaisDbService>();
+            services.AddInfrastructure();
         }
 
         private void InitializeContainer()

@@ -22,13 +22,13 @@ namespace Ateliex.Decisoes.Comerciais
     /// </summary>
     public partial class PlanosComerciaisWindow
     {
-        private readonly PlanosComerciaisService planosComerciaisService;
+        private readonly PlanosComerciaisInfraService planosComerciaisService;
 
-        private readonly ModelosService modelosService;
+        private readonly ModelosInfraService modelosService;
 
         public PlanosComerciaisWindow(
-            PlanosComerciaisService planosComerciaisService,
-            ModelosService modelosService
+            PlanosComerciaisInfraService planosComerciaisService,
+            ModelosInfraService modelosService
         )
         {
             this.planosComerciaisService = planosComerciaisService;
@@ -42,20 +42,20 @@ namespace Ateliex.Decisoes.Comerciais
         {
             var planosComerciais = await planosComerciaisService.ObtemObservavelDePlanosComerciais();
 
-            var list = planosComerciais.Select(p => PlanoComercialViewModel.From(p)).ToList();
+            //var list = planosComerciais.Select(p => PlanoComercialViewModel.From(p)).ToList();
 
-            var observableCollection = new PlanosComerciaisObservableCollection(
-                planosComerciaisService,                
-                list
-            );
+            //var observableCollection = new PlanosComerciaisObservableCollection(
+            //    planosComerciaisService,                
+            //    list
+            //);
 
             //planosComerciaisBindingSource.DataSource = bindingList;
 
-            observableCollection.StatusChanged += SetStatusBar;
+            //observableCollection.StatusChanged += SetStatusBar;
 
-            CollectionViewSource planosComerciaisViewSource = ((CollectionViewSource)(this.FindResource("planosComerciaisViewSource")));
+            //CollectionViewSource planosComerciaisViewSource = ((CollectionViewSource)(this.FindResource("planosComerciaisViewSource")));
 
-            planosComerciaisViewSource.Source = observableCollection;
+            //planosComerciaisViewSource.Source = observableCollection;
         }
 
         //void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)

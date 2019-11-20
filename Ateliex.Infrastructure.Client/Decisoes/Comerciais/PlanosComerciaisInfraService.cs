@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Ateliex.Decisoes.Comerciais
 {
-    public class PlanosComerciaisService : IConsultaDePlanosComerciais, IRepositorioDePlanosComerciais
+    public class PlanosComerciaisInfraService : IConsultaDePlanosComerciais, IRepositorioDePlanosComerciais
     {
         private readonly PlanosComerciaisDbService db;
 
-        public PlanosComerciaisService(PlanosComerciaisDbService db)
+        public PlanosComerciaisInfraService(PlanosComerciaisDbService db)
         {
             this.db = db;
         }

@@ -107,17 +107,35 @@ namespace Ateliex.Cadastro.Modelos
             }
         }
 
-        public async Task<IEnumerable<Modelo>> ObtemObservavelDeModelos()
+        //public async Task<IEnumerable<Modelo>> ObtemModelos()
+        //{
+        //    try
+        //    {
+        //        var planosComerciais = await db.Modelos
+        //            .Include(p => p.Recursos)
+        //            .ToListAsync();
+
+        //        //var observable = planosComerciais.ToObservable();
+
+        //        return planosComerciais;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // TODO: Tratar erros de persistência aqui.
+
+        //        throw new ApplicationException("Erro ao obter modelos.", ex);
+        //    }
+        //}
+
+        public async Task<Modelo[]> ObtemModelos()
         {
             try
             {
-                var planosComerciais = await db.Modelos
+                var modelos = await db.Modelos
                     .Include(p => p.Recursos)
-                    .ToListAsync();
+                    .ToArrayAsync();
 
-                //var observable = planosComerciais.ToObservable();
-
-                return planosComerciais;
+                return modelos;
             }
             catch (Exception ex)
             {

@@ -133,6 +133,8 @@ namespace Ateliex.Cadastro.Modelos
 
     public interface IRepositorioDeModelos
     {
+        Task<Modelo[]> ObtemModelos();
+
         Task<Modelo> ObtemModelo(string id);
 
         Task Add(Modelo modelo);

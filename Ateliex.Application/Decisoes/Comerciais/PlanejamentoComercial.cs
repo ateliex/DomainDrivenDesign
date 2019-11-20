@@ -76,7 +76,7 @@ namespace Ateliex.Decisoes.Comerciais
 
     }
 
-    internal class PlanejamentoComercial : IPlanejamentoComercial
+    public class PlanejamentoComercial : IPlanejamentoComercial
     {
         public PlanejamentoComercial()
         {

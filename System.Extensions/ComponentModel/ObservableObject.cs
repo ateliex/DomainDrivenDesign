@@ -7,7 +7,7 @@ namespace System.ComponentModel
     /// <summary>
     /// Observable object with INotifyPropertyChanged implemented
     /// </summary>
-    public class ObservableObject : INotifyPropertyChanged, INotifyDataErrorInfo //, IDataErrorInfo
+    public abstract class ObservableObject : INotifyPropertyChanged, INotifyDataErrorInfo //, IDataErrorInfo
     {
         /// <summary>
         /// Sets the property.

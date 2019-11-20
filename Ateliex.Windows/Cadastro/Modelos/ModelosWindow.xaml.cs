@@ -21,35 +21,26 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ModelosWindow
     {
-        private readonly ModelosService modelosService;
+        private readonly ModelosObservableCollection modelos;
 
         public ModelosWindow(
-            ModelosService modelosService
+            ModelosObservableCollection modelos
         )
         {
-            this.modelosService = modelosService;
+            this.modelos = modelos;
 
             InitializeComponent();
+
+            modelos.StatusChanged += SetStatusBar;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosService.ObtemObservavelDeModelos();
-
-            var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
-
-            var observableCollection = new ModelosObservableCollection(
-                modelosService,
-                list
-            );
-
-            //modelosBindingSource.DataSource = bindingList;
-
-            observableCollection.StatusChanged += SetStatusBar;
-
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            modelosViewSource.Source = observableCollection;
+            modelosViewSource.Source = modelos;
+
+            await modelos.Load();
         }
 
         private void SetStatusBar(string value)
@@ -59,14 +50,14 @@ namespace Ateliex.Cadastro.Modelos
             //statusBarTimer.Enabled = true;
         }
 
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
+        //private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            var observableCollection = (ModelosObservableCollection)modelosViewSource.Source;
+        //    var observableCollection = (ModelosObservableCollection)modelosViewSource.Source;
 
-            await observableCollection.SaveChanges();
-        }
+        //    await observableCollection.SaveChanges();
+        //}
 
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)
         {

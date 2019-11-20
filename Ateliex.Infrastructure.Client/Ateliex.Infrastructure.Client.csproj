@@ -13,6 +13,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="SimpleInjector" Version="4.7.1" />
+    <PackageReference Include="SimpleInjector.Packaging" Version="4.7.1" />
     <PackageReference Include="System.Reactive" Version="4.2.0" />
   </ItemGroup>
 
@@ -21,6 +23,7 @@
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
     <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Ateliex.Net.Http\Ateliex.Net.Http.csproj" />
+    <ProjectReference Include="..\Ateliex.UI\Ateliex.UI.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 

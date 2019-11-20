@@ -19,10 +19,10 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ConsultaDeModelosWindow : Window
     {
-        private readonly ModelosService consultaDeModelos;
+        private readonly ModelosInfraService consultaDeModelos;
 
         public ConsultaDeModelosWindow(
-            ModelosService consultaDeModelos
+            ModelosInfraService consultaDeModelos
         )
         {
             this.consultaDeModelos = consultaDeModelos;
@@ -32,7 +32,7 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await consultaDeModelos.ObtemObservavelDeModelos();
+            var modelos = await consultaDeModelos.ObtemModelos();
 
             var list = modelos.Select(p => ItemDeConsultaDeModeloViewModel.From(p, selecteds)).ToList();
 
@@ -76,15 +76,17 @@ namespace Ateliex.Cadastro.Modelos
         {
             var selected = selecteds.Any(p => p.Codigo == modelo.Codigo);
 
-            var modeloViewModel = ModeloViewModel.From(modelo);
+            //var modeloViewModel = ModeloViewModel.From(modelo);
 
-            var viewModel = new ItemDeConsultaDeModeloViewModel
-            {
-                Selected = selected,
-                Modelo = modeloViewModel,
-            };
+            //var viewModel = new ItemDeConsultaDeModeloViewModel
+            //{
+            //    Selected = selected,
+            //    Modelo = modeloViewModel,
+            //};
 
-            return viewModel;
+            //return viewModel;
+
+            return null;
         }
     }
 }

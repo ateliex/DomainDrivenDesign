@@ -2,16 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Ateliex</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
+    <ProjectReference Include="..\Ateliex.DTO\Ateliex.DTO.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cadastro\Modelos\" />
     <Folder Include="Decisoes\Comerciais\" />
   </ItemGroup>
 

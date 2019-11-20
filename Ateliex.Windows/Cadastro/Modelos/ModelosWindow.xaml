@@ -28,9 +28,6 @@
             <MenuItem Header="Registro">
                 <MenuItem Header="Novo Modelo ..."/>
                 <Separator/>
-                <MenuItem Header="Salvar" InputGestureText="Ctrl+S" Click="SaveButton_Click">
-                </MenuItem>
-                <Separator/>
                 <MenuItem Header="Fechar"/>
             </MenuItem>
         </Menu>
@@ -39,10 +36,6 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Novo Modelo ..."/>
                 </StackPanel>
-            </Button>
-            <Separator/>
-            <Button x:Name="saveButton" ToolTip="Salvar" Click="SaveButton_Click">
-                
             </Button>
         </ToolBar>
         <Grid Grid.Row="2" DataContext="{StaticResource modelosViewSource}" Margin="0" Grid.ColumnSpan="2">
