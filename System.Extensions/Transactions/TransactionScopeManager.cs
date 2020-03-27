@@ -12,7 +12,7 @@ namespace System.Transactions
 
             //scope = new TransactionScope(TransactionScopeOption.Required, new TimeSpan(0, 2, 0));
 
-            await Task.Run(() => { });
+            await Task.CompletedTask;
         }
 
         public async Task Commit()
@@ -23,7 +23,7 @@ namespace System.Transactions
 
             scope = null;
 
-            await Task.Run(() => { });
+            await Task.CompletedTask;
         }
 
         public async Task Rollback()
@@ -32,7 +32,7 @@ namespace System.Transactions
 
             scope = null;
 
-            await Task.Run(() => { });
+            await Task.CompletedTask;
         }
     }
 }

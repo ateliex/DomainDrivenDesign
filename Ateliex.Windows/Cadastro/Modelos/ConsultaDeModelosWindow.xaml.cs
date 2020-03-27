@@ -19,20 +19,20 @@ namespace Ateliex.Cadastro.Modelos
     /// </summary>
     public partial class ConsultaDeModelosWindow : Window
     {
-        private readonly ModelosInfraService consultaDeModelos;
+        private readonly IRepositorioDeModelos repositorioDeModelos;
 
         public ConsultaDeModelosWindow(
-            ModelosInfraService consultaDeModelos
+            IRepositorioDeModelos repositorioDeModelos
         )
         {
-            this.consultaDeModelos = consultaDeModelos;
+            this.repositorioDeModelos = repositorioDeModelos;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await consultaDeModelos.ObtemModelos();
+            var modelos = await repositorioDeModelos.ObtemModelos();
 
             var list = modelos.Select(p => ItemDeConsultaDeModeloViewModel.From(p, selecteds)).ToList();
 

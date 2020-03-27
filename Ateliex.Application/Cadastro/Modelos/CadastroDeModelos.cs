@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ateliex.Cadastro.Modelos
+namespace Ateliex.Cadastro.Modelos.CadastroDeModelos
 {
     public interface ICadastroDeModelos
     {

@@ -11,13 +11,17 @@ namespace Ateliex
     {
         public static IServiceCollection AddWindows(this IServiceCollection services)
         {
-            services.AddTransient(typeof(MainWindow));
+            services.AddTransient<MainWindow>();
 
-            services.AddTransient(typeof(ModelosWindow));
+            services.AddTransient<ModelosViewModel>();
 
-            services.AddTransient(typeof(ConsultaDeModelosWindow));
+            services.AddTransient<ModelosWindow>();
 
-            services.AddTransient(typeof(PlanosComerciaisWindow));
+            services.AddTransient<ConsultaDeModelosWindow>();
+
+            services.AddTransient<PlanosComerciaisObservableCollection>();
+
+            services.AddTransient<PlanosComerciaisWindow>();
 
             return services;
         }

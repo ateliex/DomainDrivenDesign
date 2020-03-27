@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Ateliex</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cadastro\Modelos\ModelosPackage.cs" />
+    <Compile Remove="Decisoes\Comerciais\PlanosComerciaisPackage.cs" />
+    <Compile Remove="InfrastructurePackage.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="SimpleInjector" Version="4.7.1" />
+    <PackageReference Include="SimpleInjector.Packaging" Version="4.7.1" />
+    <PackageReference Include="System.Reactive" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
+    <ProjectReference Include="..\Ateliex.Data.Sqlite\Ateliex.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
+    <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Ateliex.Net.Http\Ateliex.Net.Http.csproj" />
+    <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

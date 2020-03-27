@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DomainModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -16,16 +17,11 @@ using System.Windows.Shapes;
 
 namespace Ateliex.Cadastro.Modelos
 {
-    /// <summary>
-    /// Interaction logic for ModelosWindow.xaml
-    /// </summary>
     public partial class ModelosWindow
     {
-        private readonly ModelosObservableCollection modelos;
+        private readonly ModelosViewModel modelos;
 
-        public ModelosWindow(
-            ModelosObservableCollection modelos
-        )
+        public ModelosWindow(ModelosViewModel modelos)
         {
             this.modelos = modelos;
 
@@ -36,7 +32,7 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
+            CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("ModelosViewSource")));
 
             modelosViewSource.Source = modelos;
 
@@ -50,18 +46,29 @@ namespace Ateliex.Cadastro.Modelos
             //statusBarTimer.Enabled = true;
         }
 
-        //private async void SaveButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
-
-        //    var observableCollection = (ModelosObservableCollection)modelosViewSource.Source;
-
-        //    await observableCollection.SaveChanges();
-        //}
-
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = new ModeloViewModel();
 
+            modelos.Add(viewModel);
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("ModelosViewSource")));
+
+            //var observableCollection = (ModelosViewModel)modelosViewSource.Source;
+
+            await modelos.Save();
+        }
+
+        private async void SaveAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("ModelosViewSource")));
+
+            //var observableCollection = (ModelosViewModel)modelosViewSource.Source;
+
+            await modelos.SaveAll();
         }
     }
 

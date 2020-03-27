@@ -67,16 +67,16 @@ namespace Ateliex
             services.AddInfrastructure();
         }
 
-        private void InitializeContainer()
-        {
-            var package = new InfrastructurePackage();
+        //private void InitializeContainer()
+        //{
+        //    var package = new InfrastructurePackage();
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        //    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            //container.RegisterPackages(assemblies);
+        //    //container.RegisterPackages(assemblies);
 
-            //container.Verify();
-        }
+        //    //container.Verify();
+        //}
 
         private void InitializeDatabase()
         {

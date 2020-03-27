@@ -1,4 +1,5 @@
 ﻿using Ateliex.Cadastro.Modelos;
+using Ateliex.Decisoes.Comerciais.ConsultaDePlanosComerciais;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,25 +23,25 @@ namespace Ateliex.Decisoes.Comerciais
     /// </summary>
     public partial class PlanosComerciaisWindow
     {
-        private readonly PlanosComerciaisInfraService planosComerciaisService;
+        private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
 
-        private readonly ModelosInfraService modelosService;
+        private readonly IRepositorioDeModelos repositorioDeModelos;
 
         public PlanosComerciaisWindow(
-            PlanosComerciaisInfraService planosComerciaisService,
-            ModelosInfraService modelosService
+            IConsultaDePlanosComerciais consultaDePlanosComerciais,
+            IRepositorioDeModelos repositorioDeModelos
         )
         {
-            this.planosComerciaisService = planosComerciaisService;
+            this.consultaDePlanosComerciais = consultaDePlanosComerciais;
 
-            this.modelosService = modelosService;
+            this.repositorioDeModelos = repositorioDeModelos;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var planosComerciais = await planosComerciaisService.ObtemObservavelDePlanosComerciais();
+            //var planosComerciais = await consultaDePlanosComerciais.ObtemObservavelDePlanosComerciais();
 
             //var list = planosComerciais.Select(p => PlanoComercialViewModel.From(p)).ToList();
 
@@ -76,13 +77,13 @@ namespace Ateliex.Decisoes.Comerciais
 
             var observableCollection = (PlanosComerciaisObservableCollection)planosComerciaisViewSource.Source;
 
-            await observableCollection.SaveChanges();
+            await observableCollection.SaveAll();
         }
 
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)
         {
             var consultaDeModelosWindow = new ConsultaDeModelosWindow(
-                modelosService
+                repositorioDeModelos
             );
 
             var selecteds = GetSelectedItens();

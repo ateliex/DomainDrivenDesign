@@ -23,7 +23,7 @@ namespace Ateliex
     /// </summary>
     public partial class MainWindow
     {
-        readonly InfrastructurePackage infrastructurePackage;
+        //readonly InfrastructurePackage infrastructurePackage;
 
         public IServiceProvider ServiceProvider { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Ateliex
 
             ServiceProvider = serviceProvider;
 
-            infrastructurePackage = new InfrastructurePackage();
+            //infrastructurePackage = new InfrastructurePackage();
 
             //container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 

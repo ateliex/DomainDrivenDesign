@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ateliex.Cadastro.Modelos.CadastroDeModelos;
+using Ateliex.Cadastro.Modelos.ConsultaDeModelos;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,12 +36,12 @@ namespace Ateliex.Cadastro.Modelos
 
         public Task RemoveModelo(string codigo)
         {
-            return Task.Run(() => { });
+            return Task.CompletedTask;
         }
 
         public Task RemoveRecursoDeModelo(string codigo, string descricao)
         {
-            return Task.Run(() => { });
+            return Task.CompletedTask;
         }
     }
 }

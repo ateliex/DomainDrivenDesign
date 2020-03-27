@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>ff2d5128-c619-4ad3-8b87-a2353362f46f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <RootNamespace>Ateliex</RootNamespace>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
-    <ProjectReference Include="..\Ateliex.Infrastructure\Ateliex.Infrastructure.csproj" />
+    <ProjectReference Include="..\Ateliex.Infrastructure\Ateliex.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 

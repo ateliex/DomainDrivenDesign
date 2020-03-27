@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ateliex.Cadastro.Modelos.CadastroDeModelos;
+using Ateliex.Cadastro.Modelos.ConsultaDeModelos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

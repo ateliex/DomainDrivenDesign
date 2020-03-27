@@ -1,95 +1,171 @@
 ﻿<Window
-        x:Class="Ateliex.Cadastro.Modelos.ModelosWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:system="clr-namespace:System;assembly=System.Xaml.Extensions"
-        xmlns:local="clr-namespace:Ateliex.Cadastro.Modelos"
-        xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.Domain"
-        mc:Ignorable="d"
-        Title="Modelos" Height="795" Width="1193" Loaded="Window_Loaded"
-        xml:lang="pt-BR"
-    >
+    x:Class="Ateliex.Cadastro.Modelos.ModelosWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ateliex.Cadastro.Modelos"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelos="clr-namespace:Ateliex.Cadastro.Modelos;assembly=Ateliex.Domain"
+    xmlns:system="clr-namespace:System;assembly=System.Xaml.Extensions"
+    Title="Modelos"
+    Width="1193"
+    Height="795"
+    xml:lang="pt-BR"
+    Loaded="Window_Loaded"
+    mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ModeloViewModel}, CreateList=True}"/>
-            <CollectionViewSource x:Key="recursosViewSource" Source="{Binding Recursos, Source={StaticResource modelosViewSource}}"/>
+            <CollectionViewSource x:Key="ModelosViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ModeloViewModel}, CreateList=True}" />
+            <CollectionViewSource x:Key="RecursosViewSource" Source="{Binding Recursos, Source={StaticResource ModelosViewSource}}" />
+            <Image x:Key="Save" Source="/Resources/saveHS.png" />
+            <Image x:Key="SaveAll" Source="/Resources/saveAllHS.png" />
         </ResourceDictionary>
     </Window.Resources>
+    <Window.DataContext>
+        <Binding Source="{StaticResource ModelosViewSource}" />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="18" />
+            <RowDefinition Height="29" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="32" />
         </Grid.RowDefinitions>
-        <Menu VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <Menu Grid.ColumnSpan="2" VerticalAlignment="Top">
             <MenuItem Header="Registro">
-                <MenuItem Header="Novo Modelo ..."/>
-                <Separator/>
-                <MenuItem Header="Fechar"/>
+                <MenuItem Header="Novo Modelo ..." />
+                <Separator />
+                <MenuItem
+                    Command="{Binding SaveCommand}"
+                    Header="Salvar"
+                    InputGestureText="Ctrl+S" />
+                <MenuItem
+                    Command="{Binding SaveAllCommand}"
+                    Header="Salvar Tudo"
+                    InputGestureText="Ctrl+Shift+S" />
+                <Separator />
+                <MenuItem Header="Fechar" />
             </MenuItem>
         </Menu>
-        <ToolBar VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2">
-            <Button>
+        <ToolBar
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Top">
+            <Button Click="AdicionarModeloButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Novo Modelo ..."/>
+                    <TextBlock Text="Novo Modelo ..." />
                 </StackPanel>
             </Button>
+            <Separator />
+            <Button
+                x:Name="saveButton"
+                Height="24"
+                Click="SaveButton_Click"
+                Content="{StaticResource Save}"
+                ToolTip="Salvar" />
+            <Button
+                x:Name="saveAllButton"
+                Height="24"
+                Click="SaveAllButton_Click"
+                Content="{StaticResource SaveAll}"
+                ToolTip="Salvar Tudo" />
         </ToolBar>
-        <Grid Grid.Row="2" DataContext="{StaticResource modelosViewSource}" Margin="0" Grid.ColumnSpan="2">
+        <Grid
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <DataGrid 
+            <DataGrid
                 x:Name="modeloViewModelDataGrid"
-                ItemsSource="{Binding}"
-                RowDetailsVisibilityMode="VisibleWhenSelected"
-                EnableRowVirtualization="True"
                 AutoGenerateColumns="False"
-            >
+                EnableRowVirtualization="True"
+                ItemsSource="{Binding}"
+                RowDetailsVisibilityMode="VisibleWhenSelected">
                 <!--<DataGrid.RowValidationRules>
                     <local:ModeloValidationRule ValidationStep="UpdatedValue"/>
                 </DataGrid.RowValidationRules>-->
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="codigoColumn" Header="Código" Width="72" Binding="{Binding Codigo}"/>
-                    <DataGridTextColumn x:Name="nomeColumn" Header="Nome" Width="*" Binding="{Binding Nome}"/>
-                    <DataGridTextColumn x:Name="custoDeProducaoColumn" Header="CP (R$)" Width="72" Binding="{Binding CustoDeProducao, Mode=OneWay}"/>
+                    <DataGridTextColumn
+                        x:Name="codigoColumn"
+                        Width="72"
+                        Binding="{Binding Codigo}"
+                        Header="Código" />
+                    <DataGridTextColumn
+                        x:Name="nomeColumn"
+                        Width="*"
+                        Binding="{Binding Nome}"
+                        Header="Nome" />
+                    <DataGridTextColumn
+                        x:Name="custoDeProducaoColumn"
+                        Width="72"
+                        Binding="{Binding CustoDeProducao, Mode=OneWay}"
+                        Header="CP (R$)" />
                 </DataGrid.Columns>
             </DataGrid>
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-            <Grid Grid.Column="2" Margin="0" Grid.ColumnSpan="2">
+            <GridSplitter
+                Grid.Column="1"
+                Width="5"
+                HorizontalAlignment="Stretch" />
+            <Grid
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Margin="0">
                 <GroupBox Header="Recursos">
                     <StackPanel>
                         <ToolBar VerticalAlignment="Top">
-                            <Button x:Name="adicionarRecursoButton" Content="Adicionar Recurso..." Click="AdicionarModeloButton_Click"/>
+                            <Button
+                                x:Name="adicionarRecursoButton"
+                                Click="AdicionarModeloButton_Click"
+                                Content="Adicionar Recurso..." />
                         </ToolBar>
                         <DataGrid
                             Height="Auto"
-                            ItemsSource="{Binding Source={StaticResource recursosViewSource}}"
-                            RowDetailsVisibilityMode="VisibleWhenSelected"
-                            VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"
-                            EnableRowVirtualization="True"
+                            VerticalContentAlignment="Stretch"
                             AutoGenerateColumns="False"
-                        >
+                            EnableRowVirtualization="True"
+                            ItemsSource="{Binding Source={StaticResource RecursosViewSource}}"
+                            RowDetailsVisibilityMode="VisibleWhenSelected">
                             <DataGrid.Columns>
-                                <DataGridComboBoxColumn Header="Tipo" Width="Auto" SelectedValueBinding="{Binding Tipo}" ItemsSource="{Binding Source={system:EnumBindingSource {x:Type modelos:TipoDeRecurso}}, Mode=OneWay}"/>
-                                <DataGridTextColumn Header="Descrição" Width="*" Binding="{Binding Descricao}" />
-                                <DataGridTextColumn Header="C (R$)" Width="72" Binding="{Binding Custo, StringFormat={}{0:n2}}" CellStyle="{StaticResource RightStyle}" />
-                                <DataGridTextColumn Header="Unidades" Width="72" Binding="{Binding Unidades}" CellStyle="{StaticResource RightStyle}" />
-                                <DataGridTextColumn Header="C/U (R$)" Width="72" Binding="{Binding CustoPorUnidade, Mode=OneWay, StringFormat={}{0:n2}}" CellStyle="{StaticResource RightStyle}" />
+                                <DataGridComboBoxColumn
+                                    Width="Auto"
+                                    Header="Tipo"
+                                    ItemsSource="{Binding Source={system:EnumBindingSource {x:Type modelos:TipoDeRecurso}}, Mode=OneWay}"
+                                    SelectedValueBinding="{Binding Tipo}" />
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding Descricao}"
+                                    Header="Descrição" />
+                                <DataGridTextColumn
+                                    Width="72"
+                                    Binding="{Binding Custo, StringFormat={}{0:n2}}"
+                                    CellStyle="{StaticResource RightStyle}"
+                                    Header="C (R$)" />
+                                <DataGridTextColumn
+                                    Width="72"
+                                    Binding="{Binding Unidades}"
+                                    CellStyle="{StaticResource RightStyle}"
+                                    Header="Unidades" />
+                                <DataGridTextColumn
+                                    Width="72"
+                                    Binding="{Binding CustoPorUnidade, Mode=OneWay, StringFormat={}{0:n2}}"
+                                    CellStyle="{StaticResource RightStyle}"
+                                    Header="C/U (R$)" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
                 </GroupBox>
             </Grid>
         </Grid>
-        <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
-            <Label x:Name="statusBarLabel" Content="Pronto."/>
+        <StatusBar
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Bottom">
+            <Label x:Name="statusBarLabel" Content="Pronto." />
         </StatusBar>
     </Grid>
 </Window>
