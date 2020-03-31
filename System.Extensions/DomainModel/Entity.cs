@@ -21,7 +21,7 @@ namespace System.DomainModel
             }
         }
 
-        protected void Apply(IEvent e)
+        public void Apply(IEvent e)
         {
             Changes.Add(e);
 

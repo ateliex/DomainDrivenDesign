@@ -17,9 +17,6 @@ using System.Windows;
 
 namespace Ateliex
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public IServiceProvider ServiceProvider { get; private set; }

@@ -15,14 +15,14 @@
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="ModelosViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ModeloViewModel}, CreateList=True}" />
-            <CollectionViewSource x:Key="RecursosViewSource" Source="{Binding Recursos, Source={StaticResource ModelosViewSource}}" />
+            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type local:ModeloViewModel}, CreateList=True}" />
+            <CollectionViewSource x:Key="recursosViewSource" Source="{Binding Recursos, Source={StaticResource modelosViewSource}}" />
             <Image x:Key="Save" Source="/Resources/saveHS.png" />
             <Image x:Key="SaveAll" Source="/Resources/saveAllHS.png" />
         </ResourceDictionary>
     </Window.Resources>
     <Window.DataContext>
-        <Binding Source="{StaticResource ModelosViewSource}" />
+        <Binding Source="{StaticResource modelosViewSource}" />
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -128,7 +128,7 @@
                             VerticalContentAlignment="Stretch"
                             AutoGenerateColumns="False"
                             EnableRowVirtualization="True"
-                            ItemsSource="{Binding Source={StaticResource RecursosViewSource}}"
+                            ItemsSource="{Binding Source={StaticResource recursosViewSource}}"
                             RowDetailsVisibilityMode="VisibleWhenSelected">
                             <DataGrid.Columns>
                                 <DataGridComboBoxColumn

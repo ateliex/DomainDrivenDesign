@@ -44,9 +44,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Web", "Ateliex.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.DTO", "Ateliex.DTO\Ateliex.DTO.csproj", "{3B5E830D-66E4-4815-A59F-4831755C2B9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.Data.Sqlite", "Ateliex.Data.Sqlite\Ateliex.Data.Sqlite.csproj", "{573BD99D-7CE4-42F3-880E-940F1269CA13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Data.Sqlite", "Ateliex.Data.Sqlite\Ateliex.Data.Sqlite.csproj", "{573BD99D-7CE4-42F3-880E-940F1269CA13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ateliex.Data.SqlClient", "Ateliex.Data.SqlClient\Ateliex.Data.SqlClient.csproj", "{4A5B99F9-BFE3-42E9-8437-A0F613BD29A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Data.SqlClient", "Ateliex.Data.SqlClient\Ateliex.Data.SqlClient.csproj", "{4A5B99F9-BFE3-42E9-8437-A0F613BD29A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

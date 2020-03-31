@@ -14,3 +14,10 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 
 ### Nuget
 - Microsoft.UI.Xaml
+
+# Observações.
+- Estilo reativo.
+- Somente a camada de aplicação e de domínio são modularizadas pelos conceitos; o restante é pelo viés técnico.
+
+# TODO
+- Implementar WebSockets.

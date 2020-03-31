@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
-    <ProjectReference Include="..\Ateliex.Infrastructure.Client\Ateliex.Windows.Infrastructure.csproj" />
     <ProjectReference Include="..\Ateliex.Windows.Infrastructure\Ateliex.Windows.Infrastructure.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
     <ProjectReference Include="..\System.Xaml.Extensions\System.Xaml.Extensions.csproj" />

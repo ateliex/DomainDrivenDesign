@@ -67,6 +67,13 @@ namespace Ateliex.Cadastro.Modelos
             return recurso;
         }
 
+        public void When(DescricaoDeRecursoDeModeloAlterado e)
+        {
+            var recurso = Recursos.FirstOrDefault(p => p.Descricao == e.DescricaoAntiga);
+
+            //recurso.When(e);
+        }
+
         public void RemoveRecurso(Recurso recurso)
         {
             Recursos.Remove(recurso);
@@ -174,7 +181,12 @@ namespace Ateliex.Cadastro.Modelos
 
         public void DefineDescricao(string descricao)
         {
-            Descricao = descricao;
+            Modelo.Apply(new DescricaoDeRecursoDeModeloAlterado(descricao));
+        }
+
+        public void When(DescricaoDeRecursoDeModeloAlterado e)
+        {
+            Descricao = e.Descricao;
         }
 
         public void DefineCusto(decimal custo)
@@ -193,6 +205,19 @@ namespace Ateliex.Cadastro.Modelos
         }
 
         public string ModeloCodigo { get; set; }
+    }
+
+    [Serializable]
+    public class DescricaoDeRecursoDeModeloAlterado : IEvent
+    {
+        public string DescricaoAntiga { get; }
+        
+        public string Descricao { get; }
+
+        public DescricaoDeRecursoDeModeloAlterado(string descricao)
+        {
+            Descricao = descricao;
+        }
     }
 
     public interface IRepositorioDeModelos

@@ -32,7 +32,7 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("ModelosViewSource")));
+            CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
             modelosViewSource.Source = modelos;
 
@@ -55,7 +55,7 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("ModelosViewSource")));
+            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
             //var observableCollection = (ModelosViewModel)modelosViewSource.Source;
 
@@ -64,7 +64,7 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void SaveAllButton_Click(object sender, RoutedEventArgs e)
         {
-            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("ModelosViewSource")));
+            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
             //var observableCollection = (ModelosViewModel)modelosViewSource.Source;
 
