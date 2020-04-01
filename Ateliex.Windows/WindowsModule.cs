@@ -1,13 +1,10 @@
 ﻿using Ateliex.Cadastro.Modelos;
 using Ateliex.Decisoes.Comerciais;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ateliex
 {
-    public static class WindowsServiceCollectionExtensions
+    public static class WindowsModule
     {
         public static IServiceCollection AddWindows(this IServiceCollection services)
         {

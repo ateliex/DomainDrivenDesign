@@ -11,13 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
-    <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>
 

@@ -8,10 +8,6 @@ add-migration -name Initial -project Ateliex.EntityFrameworkCore -startupproject
 update-database -project Ateliex.EntityFrameworkCore -startupproject Ateliex.Windows
 drop-database -project Ateliex.EntityFrameworkCore -startupproject Ateliex.Windows
 
-## WPF
-
-https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
-
 ### Nuget
 - Microsoft.UI.Xaml
 

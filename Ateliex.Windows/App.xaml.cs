@@ -1,18 +1,9 @@
-﻿using Ateliex.Cadastro.Modelos;
-using Ateliex.Decisoes.Comerciais;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows;
 
 namespace Ateliex
@@ -48,10 +39,6 @@ namespace Ateliex
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
-
-            InitializeDatabase();
-
-
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 
             mainWindow.Show();
@@ -62,31 +49,6 @@ namespace Ateliex
             services.AddWindows();
             
             services.AddInfrastructure();
-        }
-
-        //private void InitializeContainer()
-        //{
-        //    var package = new InfrastructurePackage();
-
-        //    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-        //    //container.RegisterPackages(assemblies);
-
-        //    //container.Verify();
-        //}
-
-        private void InitializeDatabase()
-        {
-            var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
-
-            using (var serviceScope = serviceScopeFactory.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
-
-                dbContext.Database.EnsureCreated();
-
-                dbContext.Database.Migrate();
-            }
         }
     }
 }
