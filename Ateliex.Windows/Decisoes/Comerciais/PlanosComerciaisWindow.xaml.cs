@@ -1,4 +1,5 @@
 ﻿using Ateliex.Cadastro.Modelos;
+using Ateliex.Decisoes.Comerciais.ConsultaDePlanosComerciais;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,40 +23,40 @@ namespace Ateliex.Decisoes.Comerciais
     /// </summary>
     public partial class PlanosComerciaisWindow
     {
-        private readonly PlanosComerciaisService planosComerciaisService;
+        private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
 
-        private readonly ModelosService modelosService;
+        private readonly IRepositorioDeModelos repositorioDeModelos;
 
         public PlanosComerciaisWindow(
-            PlanosComerciaisService planosComerciaisService,
-            ModelosService modelosService
+            IConsultaDePlanosComerciais consultaDePlanosComerciais,
+            IRepositorioDeModelos repositorioDeModelos
         )
         {
-            this.planosComerciaisService = planosComerciaisService;
+            this.consultaDePlanosComerciais = consultaDePlanosComerciais;
 
-            this.modelosService = modelosService;
+            this.repositorioDeModelos = repositorioDeModelos;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var planosComerciais = await planosComerciaisService.ObtemObservavelDePlanosComerciais();
+            //var planosComerciais = await consultaDePlanosComerciais.ObtemObservavelDePlanosComerciais();
 
-            var list = planosComerciais.Select(p => PlanoComercialViewModel.From(p)).ToList();
+            //var list = planosComerciais.Select(p => PlanoComercialViewModel.From(p)).ToList();
 
-            var observableCollection = new PlanosComerciaisObservableCollection(
-                planosComerciaisService,                
-                list
-            );
+            //var observableCollection = new PlanosComerciaisObservableCollection(
+            //    planosComerciaisService,                
+            //    list
+            //);
 
             //planosComerciaisBindingSource.DataSource = bindingList;
 
-            observableCollection.StatusChanged += SetStatusBar;
+            //observableCollection.StatusChanged += SetStatusBar;
 
-            CollectionViewSource planosComerciaisViewSource = ((CollectionViewSource)(this.FindResource("planosComerciaisViewSource")));
+            //CollectionViewSource planosComerciaisViewSource = ((CollectionViewSource)(this.FindResource("planosComerciaisViewSource")));
 
-            planosComerciaisViewSource.Source = observableCollection;
+            //planosComerciaisViewSource.Source = observableCollection;
         }
 
         //void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -76,13 +77,13 @@ namespace Ateliex.Decisoes.Comerciais
 
             var observableCollection = (PlanosComerciaisObservableCollection)planosComerciaisViewSource.Source;
 
-            await observableCollection.SaveChanges();
+            await observableCollection.SaveAll();
         }
 
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)
         {
             var consultaDeModelosWindow = new ConsultaDeModelosWindow(
-                modelosService
+                repositorioDeModelos
             );
 
             var selecteds = GetSelectedItens();

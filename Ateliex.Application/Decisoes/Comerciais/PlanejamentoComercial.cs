@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ateliex.Decisoes.Comerciais
+namespace Ateliex.Decisoes.Comerciais.PlanejamentoComercial
 {
     public interface IPlanejamentoComercial
     {
@@ -76,7 +76,7 @@ namespace Ateliex.Decisoes.Comerciais
 
     }
 
-    internal class PlanejamentoComercial : IPlanejamentoComercial
+    public class PlanejamentoComercial : IPlanejamentoComercial
     {
         public PlanejamentoComercial()
         {

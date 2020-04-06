@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Ateliex.Cadastro.Modelos
+namespace Ateliex.Cadastro.Modelos.CadastroDeModelos
 {
     public interface ICadastroDeModelos
     {
-        RespostaDeCadastroDeModelo CadastraModelo(SolicitacaoDeCadastroDeModelo solicitacao);
+        Task<RespostaDeCadastroDeModelo> CadastraModelo(SolicitacaoDeCadastroDeModelo solicitacao);
 
-        RespostaDeAdicaoDeRecursoDeModelo AdicionaRecursoDeModelo(SolicitacaoDeAdicaoDeRecursoDeModelo solicitacao);
+        Task<RespostaDeAdicaoDeRecursoDeModelo> AdicionaRecursoDeModelo(SolicitacaoDeAdicaoDeRecursoDeModelo solicitacao);
 
-        void RemoveRecursoDeModelo(string codigo, string descricao);
+        Task RemoveRecursoDeModelo(string codigo, string descricao);
 
-        void RemoveModelo(string codigo);
+        Task RemoveModelo(string codigo);
     }
 
     public class SolicitacaoDeCadastroDeModelo
@@ -45,29 +46,29 @@ namespace Ateliex.Cadastro.Modelos
 
     }
 
-    internal class CadastroDeModelos : ICadastroDeModelos
+    public class CadastroDeModelos : ICadastroDeModelos
     {
         public CadastroDeModelos()
         {
 
         }
 
-        public RespostaDeCadastroDeModelo CadastraModelo(SolicitacaoDeCadastroDeModelo solicitacao)
+        public Task<RespostaDeCadastroDeModelo> CadastraModelo(SolicitacaoDeCadastroDeModelo solicitacao)
         {
             throw new NotImplementedException();
         }
 
-        public RespostaDeAdicaoDeRecursoDeModelo AdicionaRecursoDeModelo(SolicitacaoDeAdicaoDeRecursoDeModelo solicitacao)
+        public Task<RespostaDeAdicaoDeRecursoDeModelo> AdicionaRecursoDeModelo(SolicitacaoDeAdicaoDeRecursoDeModelo solicitacao)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveRecursoDeModelo(string codigo, string descricao)
+        public Task RemoveRecursoDeModelo(string codigo, string descricao)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveModelo(string codigo)
+        public Task RemoveModelo(string codigo)
         {
             throw new NotImplementedException();
         }

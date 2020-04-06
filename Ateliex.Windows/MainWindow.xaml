@@ -1,14 +1,15 @@
-﻿<Window x:Class="Ateliex.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:Ateliex"
-        mc:Ignorable="d"
-        Title="Ateliex" Height="450" Width="800"
-        Loaded="Window_Loaded"
-        >
+﻿<Window
+    x:Class="Ateliex.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ateliex"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Ateliex"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
     <Window.Resources>
         <local:VisualToImageSourceConverter x:Key="Converter" />
     </Window.Resources>
@@ -33,17 +34,17 @@
     <Grid>
         <Grid.RowDefinitions>
             <!--<RowDefinition Height="Auto"/>-->
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <!--<materialDesign:ColorZone
                         Mode="Dark"
-                        Padding="16"                        
+                        Padding="16"
                         Grid.ColumnSpan="3"
                         >
                 <DockPanel>
@@ -53,7 +54,7 @@
                             materialDesign:RippleAssist.IsCentered="True">
                         <ToggleButton
                             Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
-                            CommandParameter="{x:Static Dock.Left}"                            
+                            CommandParameter="{x:Static Dock.Left}"
                             />
                         <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1"
                                    Margin="16 0 0 0"
@@ -68,7 +69,7 @@
                                     >
                                     <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
                                 </Button>
-                                <TextBox Grid.Column="1" Margin="8 0 0 0" materialDesign:HintAssist.Hint="Build a search bar" 
+                                <TextBox Grid.Column="1" Margin="8 0 0 0" materialDesign:HintAssist.Hint="Build a search bar"
                                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
                                      MinWidth="200" VerticalAlignment="Center" />
                                 <Button Grid.Column="2">
@@ -82,26 +83,40 @@
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>-->
-        <Menu IsMainMenu="True" Grid.Row="1" Grid.ColumnSpan="3">
+        <Menu
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            IsMainMenu="True">
             <MenuItem Header="Sistema">
-                <MenuItem Header="Trocar de Usuário"></MenuItem>
-                <MenuItem Header="Logoff"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Opções"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Sair"></MenuItem>
+                <MenuItem Header="Trocar de Usuário" />
+                <MenuItem Header="Logoff" />
+                <Separator />
+                <MenuItem Header="Opções" />
+                <Separator />
+                <MenuItem Header="Sair" />
             </MenuItem>
             <MenuItem Header="Cadastro">
-                <MenuItem Header="Modelos" x:Name="cadastroDeModelosMenuItem" Click="CadastroDeModelosMenuItem_Click"></MenuItem>
+                <MenuItem
+                    x:Name="cadastroDeModelosMenuItem"
+                    Click="CadastroDeModelosMenuItem_Click"
+                    Header="Modelos" />
             </MenuItem>
             <MenuItem Header="Decisões">
                 <MenuItem Header="Comerciais">
-                    <MenuItem Header="Planejamento Comercial" x:Name="planejamentoComercialMenuItem" Click="PlanejamentoComercialMenuItem_Click"></MenuItem>
+                    <MenuItem
+                        x:Name="planejamentoComercialMenuItem"
+                        Click="PlanejamentoComercialMenuItem_Click"
+                        Header="Planejamento Comercial" />
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="36" TextAlignment="Center" VerticalAlignment="Center">
-                Sistema de Ateliex
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            FontSize="36"
+            TextAlignment="Center">
+            Sistema de Ateliex
         </TextBlock>
         <StackPanel>
             <!--<Button
@@ -126,7 +141,7 @@
                     <materialDesign:PackIcon Kind="ArrowDown" />
                 </Button>
                 <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
-                            Grid.Row="1" Grid.Column="1" Margin="4" 
+                            Grid.Row="1" Grid.Column="1" Margin="4"
                             Style="{DynamicResource MaterialDesignRaisedAccentButton}">
                     <materialDesign:PackIcon Kind="ArrowAll" />
                 </Button>-->

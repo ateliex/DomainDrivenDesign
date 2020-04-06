@@ -5,18 +5,42 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.PresentationModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Ateliex.Cadastro.Modelos
 {
-    public class ModeloViewModel : ObservableObject, INotifyPropertyChanged, IEditableObject
+    public class ModeloViewModel : ViewModel, INotifyPropertyChanged, IEditableObject
     {
-        protected internal Modelo model;
+        private Modelo modelo;
 
-        private string codigo;
-        [Required(ErrorMessage = "Teste")]
+        private IRepositorioDeModelos repositorioDeModelos;
+
+        internal Modelo GetModel()
+        {
+            return modelo;
+        }
+
+        internal IRepositorioDeModelos GetRepository()
+        {
+            return repositorioDeModelos;
+        }
+
+        internal void SetModel(Modelo modelo, IRepositorioDeModelos repositorioDeModelos)
+        {
+            this.modelo = modelo;
+
+            codigo = modelo.Codigo;
+
+            nome = modelo.Nome;
+
+            this.repositorioDeModelos = repositorioDeModelos;
+        }
+
+        protected internal string codigo;
+        [Required(ErrorMessage = "Teste: Código Obrigatório")]
         public string Codigo
         {
             get { return codigo; }
@@ -28,7 +52,11 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    model.DefineCodigo(value);
+                    var codigo = new CodigoDeModelo(value);
+
+                    modelo.AlteraCodigo(codigo);
+
+                    //repositorioDeModelos.Update(modelo);
 
                     ClearErrors("Codigo");
                 }
@@ -39,8 +67,8 @@ namespace Ateliex.Cadastro.Modelos
             }
         }
 
-        private string nome;
-        [Required(ErrorMessage = "Teste")]
+        protected internal string nome;
+        [Required(ErrorMessage = "Teste: Nome Obrigatório")]
         public string Nome
         {
             get { return nome; }
@@ -52,7 +80,9 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    model.DefineNome(value);
+                    modelo.AlteraNome(value);
+
+                    //repositorioDeModelos.Update(modelo);
 
                     ClearErrors("Nome");
                 }
@@ -65,33 +95,34 @@ namespace Ateliex.Cadastro.Modelos
 
         public decimal CustoDeProducao
         {
-            get { return model.CustoDeProducao; }
+            get { return modelo.CustoDeProducao; }
         }
 
-        public RecursosObservableCollection Recursos { get; set; }
+        public RecursosViewModel Recursos { get; set; }
 
         public ModeloViewModel()
         {
-            Recursos = new RecursosObservableCollection(new List<RecursoViewModel>() { });
+            Recursos = new RecursosViewModel(new List<RecursoViewModel>() { });
 
-            Recursos.modelo = this;
+            Recursos.modeloViewModel = this;
         }
 
-        public static ModeloViewModel From(Modelo modelo)
+        public static ModeloViewModel From(Modelo modelo, IRepositorioDeModelos repositorioDeModelos)
         {
             var recursos = modelo.Recursos.Select(p => RecursoViewModel.From(p)).ToList();
 
-            var recursosObservableCollection = new RecursosObservableCollection(recursos);
+            var recursosObservableCollection = new RecursosViewModel(recursos);
 
             var viewModel = new ModeloViewModel
             {
-                model = modelo as Modelo,
+                modelo = modelo,
+                repositorioDeModelos = repositorioDeModelos,
                 codigo = modelo.Codigo,
                 nome = modelo.Nome,
                 Recursos = recursosObservableCollection,
             };
 
-            recursosObservableCollection.modelo = viewModel;
+            recursosObservableCollection.modeloViewModel = viewModel;
 
             return viewModel;
         }
@@ -127,324 +158,7 @@ namespace Ateliex.Cadastro.Modelos
 
             inEdidt = false;
 
-            nome = model.Nome;
-        }
-    }
-
-    public class RecursoViewModel : ObservableObject //, IEditableObject
-    {
-        protected internal RecursosObservableCollection collection;
-
-        protected internal Recurso model;
-
-        public string ModeloCodigo
-        {
-            get { return model.Modelo.Codigo; }
-        }
-
-        private TipoDeRecurso tipo;
-        public TipoDeRecurso Tipo
-        {
-            get { return tipo; }
-            set
-            {
-                tipo = value;
-
-                OnPropertyChanged();
-
-                try
-                {
-                    model.DefineTipo(value);
-
-                    ClearErrors("Tipo");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Tipo", ex);
-                }
-            }
-        }
-
-        private string descricao;
-        public string Descricao
-        {
-            get { return descricao; }
-            set
-            {
-                descricao = value;
-
-                OnPropertyChanged();
-
-                try
-                {
-                    model.DefineDescricao(value);
-
-                    ClearErrors("Descricao");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Descricao", ex);
-                }
-            }
-        }
-
-        private string custo;
-        public string Custo
-        {
-            get { return custo; }
-            set
-            {
-                custo = value;
-
-                OnPropertyChanged();
-
-                try
-                {
-                    var value2 = Convert.ToDecimal(value);
-
-                    model.DefineCusto(value2);
-
-                    OnPropertyChanged("CustoPorUnidade");
-
-                    collection.modelo.OnPropertyChanged("CustoDeProducao");
-
-                    ClearErrors("Valor");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Valor", ex);
-                }
-            }
-        }
-
-        private string unidades;
-        public string Unidades
-        {
-            get { return unidades; }
-            set
-            {
-                unidades = value;
-
-                OnPropertyChanged();
-
-                try
-                {
-                    var value2 = Convert.ToInt32(value);
-
-                    model.DefineUnidades(value2);
-
-                    OnPropertyChanged("CustoPorUnidade");
-
-                    collection.modelo.OnPropertyChanged("CustoDeProducao");
-
-                    ClearErrors("Unidades");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Unidades", ex);
-                }
-            }
-        }
-
-        public decimal CustoPorUnidade
-        {
-            get { return model.CustoPorUnidade; }
-        }
-
-        public RecursoViewModel()
-        {
-
-        }
-
-        public static RecursoViewModel From(Recurso recurso)
-        {
-            var viewModel = new RecursoViewModel
-            {
-                model = recurso,
-                tipo = recurso.Tipo,
-                descricao = recurso.Descricao,
-                custo = recurso.Custo.ToString(),
-                unidades = recurso.Unidades.ToString(),
-            };
-
-            return viewModel;
-        }
-    }
-
-    public class ModelosObservableCollection : ExtendedObservableCollection<ModeloViewModel>
-    {
-        private readonly ModelosService modelosService;
-
-        //private readonly IPlanejamentoComercial planejamentoComercial;
-
-        public ModelosObservableCollection()
-            : base()
-        {
-
-        }
-
-        public ModelosObservableCollection(
-            ModelosService modelosService
-        )
-            : base()
-        {
-            this.modelosService = modelosService;
-        }
-
-        public ModelosObservableCollection(
-            ModelosService modelosService,
-            IList<ModeloViewModel> list
-        )
-            : base(list)
-        {
-            this.modelosService = modelosService;
-        }
-
-        public ModelosObservableCollection(IList<ModeloViewModel> list)
-            : base(list)
-        {
-
-        }
-
-        //protected override object AddNewCore()
-        //{
-        //    var model = new Modelo(
-        //        Guid.NewGuid().ToString(),
-        //        null,
-        //        6000,
-        //        20
-        //    );
-
-        //    var viewModel = ModeloViewModel.From(model);
-
-        //    OnAddNew(viewModel);
-
-        //    return viewModel;
-        //}
-
-        protected override async void OnAddNew(ModeloViewModel viewModel)
-        {
-            //item.BindingList = this;
-
-            var model = new Modelo(
-                            Guid.NewGuid().ToString(),
-                            "Modelo #"
-                        );
-
-            viewModel.model = model;
-
-            await modelosService.Add(model);
-
-            //viewModel.Itens.planoComercial = viewModel;
-
-            base.OnAddNew(viewModel);
-        }
-
-        protected override async void OnRemoveItem(ModeloViewModel viewModel)
-        {
-            await modelosService.Remove(viewModel.model);
-
-            base.OnRemoveItem(viewModel);
-        }
-
-        public override async Task SaveChanges()
-        {
-            try
-            {
-                //await unitOfWork.Commit();
-
-                SetStatus($"Modelo salvo com sucesso.");
-            }
-            catch (Exception ex)
-            {
-                SetStatus(ex.Message);
-            }
-
-            //var newItems = GetItemsBy(ObjectState.New);
-
-            //foreach (var newItem in newItems)
-            //{
-            //    try
-            //    {
-            //        await planosComerciaisLocalService.Add(newItem.model);
-
-            //        SetStatus($"Novo planoComercial '{newItem.model.Id}' cadastrado com sucesso.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        SetStatus(ex.Message);
-            //    }
-            //}
-
-            ////
-
-            //var modifiedItems = GetItemsBy(ObjectState.Modified);
-
-            //foreach (var modifiedItem in modifiedItems)
-            //{
-            //    try
-            //    {
-            //        await planosComerciaisLocalService.Update(modifiedItem.model);
-
-            //        SetStatus($"Modelo '{modifiedItem.Id}' atualizado com sucesso.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        SetStatus(ex.Message);
-            //    }
-            //}
-
-            ////
-
-            //var deletedItems = GetItemsBy(ObjectState.Deleted);
-
-            //foreach (var deletedItem in deletedItems)
-            //{
-            //    try
-            //    {
-            //        await planosComerciaisLocalService.Remove(deletedItem.model);
-
-            //        SetStatus($"Modelo '{deletedItem.Id}' excluído com sucesso.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        SetStatus(ex.Message);
-            //    }
-            //}
-        }
-    }
-
-    public class RecursosObservableCollection : ExtendedObservableCollection<RecursoViewModel>
-    {
-        protected internal ModeloViewModel modelo;
-
-        public RecursosObservableCollection(IList<RecursoViewModel> list)
-            : base(list)
-        {
-            foreach (var item in list)
-            {
-                item.collection = this;
-            }
-        }
-
-        protected override void OnAddNew(RecursoViewModel viewModel)
-        {
-            var model = modelo.model.AdicionaRecurso(TipoDeRecurso.Material, "Custo #", 100, 1);
-
-            viewModel.collection = this;
-
-            viewModel.model = model;
-
-            //viewModel.ModeloId = planoComercial.Id;
-
-            base.OnAddNew(viewModel);
-        }
-
-        protected override void OnRemoveItem(RecursoViewModel viewModel)
-        {
-            modelo.model.RemoveRecurso(viewModel.model);
-
-            base.OnRemoveItem(viewModel);
+            nome = modelo.Nome;
         }
     }
 }

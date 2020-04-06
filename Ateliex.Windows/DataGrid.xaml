@@ -1,32 +1,31 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Ateliex"
->
+    xmlns:local="clr-namespace:Ateliex">
     <Style TargetType="{x:Type DataGrid}">
         <Setter Property="RowBackground" Value="#FFECB3" />
         <Setter Property="AlternatingRowBackground" Value="Transparent" />
         <Setter Property="HorizontalGridLinesBrush" Value="#FF8EA9DB" />
         <Setter Property="VerticalGridLinesBrush" Value="#FFD4D4D4" />
         <Setter Property="GridLinesVisibility" Value="Horizontal" />
-        <Setter Property="FontFamily" Value="Calibri"/>
-        <Setter Property="FontSize" Value="10.5pt"/>
-        <Setter Property="CanUserResizeRows" Value="False"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="Calibri" />
+        <Setter Property="FontSize" Value="10.5pt" />
+        <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
     <Style TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="FontWeight"  Value="Bold" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Background" Value="#FFC107" />
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="White" />
         <!--<Setter Property="MinHeight" Value="20"/>-->
-        <Setter Property="Padding" Value="2,0,0,0"/>
+        <Setter Property="Padding" Value="2,0,0,0" />
     </Style>
     <Style TargetType="{x:Type DataGridRowHeader}">
-        <Setter Property="MinWidth" Value="30"/>
+        <Setter Property="MinWidth" Value="30" />
         <!--<Setter Property="HorizontalContentAlignment" Value="Right"/>-->
-        <Setter Property="Background" Value="#E1F5FE"/>
-        <Setter Property="BorderBrush" Value="#FF8EA9DB"/>
-        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="Background" Value="#E1F5FE" />
+        <Setter Property="BorderBrush" Value="#FF8EA9DB" />
+        <Setter Property="BorderThickness" Value="0,0,1,1" />
         <!--<Setter Property="Template">
             <Setter.Value>
                 <DataTemplate>
@@ -39,7 +38,7 @@
     </Style>
     <Style TargetType="DataGridRow">
         <!--<Setter Property="MinHeight" Value="20"/>-->
-        <Setter Property="MaxHeight" Value="20"/>
+        <Setter Property="MaxHeight" Value="20" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="Black" />
@@ -62,8 +61,8 @@
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="#E1F5FE" />
                 <Setter Property="Foreground" Value="Black" />
-                <Setter Property="BorderBrush" Value="#E1F5FE"/>
-                <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                <Setter Property="BorderBrush" Value="#E1F5FE" />
+                <Setter Property="BorderThickness" Value="0,0,1,0" />
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
                 <Setter Property="Foreground" Value="Gray" />
@@ -71,8 +70,8 @@
         </Style.Triggers>
         <!--<Setter Property="OverridesDefaultStyle" Value="True"/>-->
         <!--<Setter Property="Background" Value="#FFD4D4D4"/>-->
-        <Setter Property="BorderBrush" Value="#FFD4D4D4"/>
-        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+        <Setter Property="BorderBrush" Value="#FFD4D4D4" />
+        <Setter Property="BorderThickness" Value="0,0,1,0" />
         <!--<Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -80,8 +79,8 @@
                         <Grid>
                             <Rectangle x:Name="selectedCellVisual" Fill="#33000000" Visibility="Collapsed"/>
                             <Border>
-                                -->
-        <!--Padding="0,4,0,2"-->
+        -->
+        <!--  Padding="0,4,0,2"  -->
         <!--<TextBlock Text="R$" HorizontalAlignment="Left"/>-->
         <!--
                                 <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
@@ -98,11 +97,14 @@
             </Setter.Value>
         </Setter>-->
     </Style>
-    <Style x:Key="RightStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource SelectionStyle}">
+    <Style
+        x:Key="RightStyle"
+        BasedOn="{StaticResource SelectionStyle}"
+        TargetType="{x:Type DataGridCell}">
         <Setter Property="TextBlock.TextAlignment" Value="Right" />
     </Style>
-    <!--When the cell is selected, switching to transparent to let the row's Background be visible-->
-    <Style TargetType="DataGridCell" BasedOn="{StaticResource SelectionStyle}">
+    <!--  When the cell is selected, switching to transparent to let the row's Background be visible  -->
+    <Style BasedOn="{StaticResource SelectionStyle}" TargetType="DataGridCell">
         <Style.Triggers>
             <!--<Trigger Property="IsEditing" Value="True">
                 <Setter Property="Template">
@@ -121,7 +123,7 @@
 
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="#FF4472C4"/>
-                -->
+            -->
             <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
             <!--<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
@@ -149,15 +151,22 @@
     </Style>-->
     <!--<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
             <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />-->
-    <Style x:Key="cellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+    <Style
+        x:Key="cellStyle"
+        BasedOn="{StaticResource {x:Type DataGridCell}}"
+        TargetType="{x:Type DataGridCell}">
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
                     <StackPanel>
                         <AdornedElementPlaceholder x:Name="placeholder" />
-                        <Popup HorizontalAlignment="Left" PopupAnimation="Fade" Placement="Bottom" IsOpen="true">
+                        <Popup
+                            HorizontalAlignment="Left"
+                            IsOpen="true"
+                            Placement="Bottom"
+                            PopupAnimation="Fade">
                             <Grid Background="White">
-                                <TextBlock Text="{Binding [0].ErrorContent}"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" />
                             </Grid>
                         </Popup>
                     </StackPanel>
@@ -171,9 +180,13 @@
                 <ControlTemplate>
                     <StackPanel>
                         <AdornedElementPlaceholder x:Name="placeholder" />
-                        <Popup HorizontalAlignment="Left" PopupAnimation="Fade" Placement="Bottom" IsOpen="true">
+                        <Popup
+                            HorizontalAlignment="Left"
+                            IsOpen="true"
+                            Placement="Bottom"
+                            PopupAnimation="Fade">
                             <Grid Background="White">
-                                <TextBlock Text="{Binding [0].ErrorContent}"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" />
                             </Grid>
                         </Popup>
                     </StackPanel>
@@ -184,25 +197,34 @@
                 <Style.Triggers>
                     <Trigger Property="Validation.HasError" Value="True">
                         <Setter Property="Background" Value="Red"/>
-                        <Setter Property="ToolTip" 
+                        <Setter Property="ToolTip"
                             Value="{Binding RelativeSource={RelativeSource Self},
                             Path=(Validation.Errors)[0].ErrorContent.Message}"/>
                     </Trigger>
                 </Style.Triggers>-->
     </Style>
     <Style x:Key="error2Style" TargetType="{x:Type Label}">
-        <Setter Property="Padding" Value="-2"/>
+        <Setter Property="Padding" Value="-2" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="True">
-                <Setter Property="Background" Value="Red"/>
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                <Setter Property="Background" Value="Red" />
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
             </Trigger>
         </Style.Triggers>
     </Style>
     <ControlTemplate x:Key="rowValidationErrorTemplate">
         <Grid Margin="0,-2,0,-2" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=(Validation.Errors)[0].ErrorContent}">
-            <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
-            <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+            <Ellipse
+                Width="{TemplateBinding FontSize}"
+                Height="{TemplateBinding FontSize}"
+                Fill="Red"
+                StrokeThickness="0" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="{TemplateBinding FontSize}"
+                FontWeight="Bold"
+                Foreground="White"
+                Text="!" />
         </Grid>
     </ControlTemplate>
 </ResourceDictionary>

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ateliex.Cadastro.Modelos
+namespace Ateliex.Cadastro.Modelos.ConsultaDeModelos
 {
     public interface IConsultaDeModelos
     {
         Task<RespostaDeConsultaDeModelos> ConsultaModelos(ParametrosDeConsultaDeModelos parametros);
-
-        Task<IEnumerable<Modelo>> ObtemObservavelDeModelos();
     }
 
     public class ParametrosDeConsultaDeModelos
