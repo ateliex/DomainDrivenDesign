@@ -16,27 +16,18 @@ namespace Ateliex.Cadastro.Modelos
     {
         private Modelo modelo;
 
-        private IRepositorioDeModelos repositorioDeModelos;
-
         internal Modelo GetModel()
         {
             return modelo;
         }
 
-        internal IRepositorioDeModelos GetRepository()
-        {
-            return repositorioDeModelos;
-        }
-
-        internal void SetModel(Modelo modelo, IRepositorioDeModelos repositorioDeModelos)
+        internal void SetModel(Modelo modelo)
         {
             this.modelo = modelo;
 
-            codigo = modelo.Codigo;
+            codigo = modelo.Codigo.Valor;
 
             nome = modelo.Nome;
-
-            this.repositorioDeModelos = repositorioDeModelos;
         }
 
         protected internal string codigo;
@@ -98,6 +89,11 @@ namespace Ateliex.Cadastro.Modelos
             get { return modelo.CustoDeProducao; }
         }
 
+        public long Version
+        {
+            get { return modelo.Version; }
+        }
+
         public RecursosViewModel Recursos { get; set; }
 
         public ModeloViewModel()
@@ -107,7 +103,7 @@ namespace Ateliex.Cadastro.Modelos
             Recursos.modeloViewModel = this;
         }
 
-        public static ModeloViewModel From(Modelo modelo, IRepositorioDeModelos repositorioDeModelos)
+        public static ModeloViewModel From(Modelo modelo)
         {
             var recursos = modelo.Recursos.Select(p => RecursoViewModel.From(p)).ToList();
 
@@ -116,8 +112,7 @@ namespace Ateliex.Cadastro.Modelos
             var viewModel = new ModeloViewModel
             {
                 modelo = modelo,
-                repositorioDeModelos = repositorioDeModelos,
-                codigo = modelo.Codigo,
+                codigo = modelo.Codigo.Valor,
                 nome = modelo.Nome,
                 Recursos = recursosObservableCollection,
             };

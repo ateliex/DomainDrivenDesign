@@ -35,7 +35,9 @@ namespace System.DomainModel
 
         public DataWithName(byte[] data, string name)
         {
+            Data = data;
 
+            Name = name;
         }
     }
 }

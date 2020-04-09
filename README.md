@@ -14,6 +14,7 @@ drop-database -project Ateliex.EntityFrameworkCore -startupproject Ateliex.Windo
 # Observações.
 - Estilo reativo.
 - Somente a camada de aplicação e de domínio são modularizadas pelos conceitos; o restante é pelo viés técnico.
+- Tentativa de manter alterações agrupadas por versão: ao repopular o banco de dados de leitura fica difícil determinar as exclusões.
 
 # TODO
 - Implementar WebSockets.

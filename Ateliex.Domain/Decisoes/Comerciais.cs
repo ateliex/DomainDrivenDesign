@@ -175,6 +175,8 @@ namespace Ateliex.Decisoes.Comerciais
     {
         public PlanoComercial PlanoComercial { get; set; }
 
+        public int Id { get; set; }
+
         public TipoDeCusto Tipo { get; set; }
 
         public string Descricao { get; set; }

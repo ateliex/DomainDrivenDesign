@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Ateliex.Cadastro.Modelos;
+using Ateliex.Cadastro.Modelos.ConsultaDeModelos;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using System.DomainModel;
+using System.Reflection;
 using System.Transactions;
 
 namespace Ateliex
@@ -14,9 +18,9 @@ namespace Ateliex
 
             //
 
-            //services.AddTransient<IConsultaDeModelos, ModelosInfraService>();
+            services.AddTransient<IConsultaDeModelos, ModelosInfraService>();
 
-            //services.AddTransient<IRepositorioDeModelos, ModelosInfraService>();
+            services.AddTransient<IRepositorioDeModelos, ModelosInfraService>();
 
             //
 
@@ -29,6 +33,8 @@ namespace Ateliex
             services.AddDbServices();
 
             services.AddHttpServices();
+
+            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(ModeloCriadoHandler).Assembly);
 
             //
 

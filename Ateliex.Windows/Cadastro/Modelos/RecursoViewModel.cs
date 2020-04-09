@@ -1,20 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.PresentationModel;
-using System.Text;
 
 namespace Ateliex.Cadastro.Modelos
 {
     public class RecursoViewModel : ViewModel //, IEditableObject
     {
-        protected internal RecursosViewModel collection;
+        private ModeloViewModel aggregate;
 
-        protected internal Recurso recurso;
+        internal void SetAggregate(ModeloViewModel aggregate)
+        {
+            this.aggregate = aggregate;
+        }
+
+        private Recurso recurso;
+
+        internal Recurso GetModel()
+        {
+            return recurso;
+        }
+
+        internal void SetModel(Recurso recurso)
+        {
+            this.recurso = recurso;
+
+            id = recurso.Id.ToString();
+
+            descricao = recurso.Descricao;
+        }
 
         public string ModeloCodigo
         {
-            get { return recurso.Modelo.Codigo; }
+            get { return recurso.Modelo.Codigo.Valor; }
+        }
+
+        protected internal string id;
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+
+                OnPropertyChanged();
+
+                try
+                {
+                    //recurso.AlteraId(id);
+
+                    ClearErrors("Id");
+                }
+                catch (Exception ex)
+                {
+                    RaiseErrorsChanged("Id", ex);
+                }
+            }
         }
 
         private TipoDeRecurso tipo;
@@ -29,15 +68,13 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    var modelo = collection.modeloViewModel.GetModel();
+                    aggregate.SetAsModified();
 
-                    var repositorioDeModelos = collection.modeloViewModel.GetRepository();
+                    var modelo = aggregate.GetModel();
 
                     //
 
-                    recurso.DefineTipo(value);
-
-                    repositorioDeModelos.Update(modelo);
+                    recurso.AlteraTipo(value);
 
                     //
 
@@ -62,15 +99,13 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    var modelo = collection.modeloViewModel.GetModel();
+                    aggregate.SetAsModified();
 
-                    var repositorioDeModelos = collection.modeloViewModel.GetRepository();
+                    var modelo = aggregate.GetModel();
 
                     //
 
-                    recurso.DefineDescricao(value);
-
-                    repositorioDeModelos.Update(modelo);
+                    recurso.AlteraDescricao(value);
 
                     //
 
@@ -95,23 +130,19 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    var modelo = collection.modeloViewModel.GetModel();
-
-                    var repositorioDeModelos = collection.modeloViewModel.GetRepository();
+                    var modelo = aggregate.GetModel();
 
                     //
 
                     var value2 = Convert.ToDecimal(value);
 
-                    recurso.DefineCusto(value2);
-
-                    repositorioDeModelos.Update(modelo);
+                    recurso.AlteraCusto(value2);
 
                     //
 
                     OnPropertyChanged("CustoPorUnidade");
 
-                    collection.modeloViewModel.OnPropertyChanged("CustoDeProducao");
+                    aggregate.OnPropertyChanged("CustoDeProducao");
 
                     ClearErrors("Valor");
                 }
@@ -134,23 +165,19 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    var modelo = collection.modeloViewModel.GetModel();
-
-                    var repositorioDeModelos = collection.modeloViewModel.GetRepository();
+                    var modelo = aggregate.GetModel();
 
                     //
 
                     var value2 = Convert.ToInt32(value);
 
-                    recurso.DefineUnidades(value2);
-
-                    repositorioDeModelos.Update(modelo);
+                    recurso.AlteraUnidades(value2);
 
                     //
 
                     OnPropertyChanged("CustoPorUnidade");
 
-                    collection.modeloViewModel.OnPropertyChanged("CustoDeProducao");
+                    aggregate.OnPropertyChanged("CustoDeProducao");
 
                     ClearErrors("Unidades");
                 }

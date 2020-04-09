@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DomainModel;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Ateliex.Cadastro.Modelos
 {
@@ -23,20 +10,18 @@ namespace Ateliex.Cadastro.Modelos
 
         public ModelosWindow(ModelosViewModel modelos)
         {
-            this.modelos = modelos;
-
             InitializeComponent();
+
+            this.modelos = modelos;
 
             modelos.StatusChanged += SetStatusBar;
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
             modelosViewSource.Source = modelos;
-
-            await modelos.Load();
         }
 
         private void SetStatusBar(string value)
@@ -55,37 +40,29 @@ namespace Ateliex.Cadastro.Modelos
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
-
-            //var observableCollection = (ModelosViewModel)modelosViewSource.Source;
-
             await modelos.Save();
         }
 
         private async void SaveAllButton_Click(object sender, RoutedEventArgs e)
         {
-            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
-
-            //var observableCollection = (ModelosViewModel)modelosViewSource.Source;
-
             await modelos.SaveAll();
         }
     }
 
-    //public class ModeloValidationRule : ValidationRule
-    //{
-    //    public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
-    //    {
-    //        ModeloViewModel viewModel = (value as BindingGroup).Items[0] as ModeloViewModel;
+    public class ModeloValidationRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            ModeloViewModel viewModel = (value as BindingGroup).Items[0] as ModeloViewModel;
 
-    //        if (viewModel.HasErrors)
-    //        {
-    //            return new ValidationResult(false, viewModel.Error);
-    //        }
-    //        else
-    //        {
-    //            return ValidationResult.ValidResult;
-    //        }
-    //    }
-    //}
+            if (viewModel.HasErrors)
+            {
+                return new ValidationResult(false, viewModel.Error);
+            }
+            else
+            {
+                return ValidationResult.ValidResult;
+            }
+        }
+    }
 }

@@ -1,20 +1,11 @@
 ﻿using Ateliex.Cadastro.Modelos;
+using Ateliex.Cadastro.Modelos.ConsultaDeModelos;
 using Ateliex.Decisoes.Comerciais.ConsultaDePlanosComerciais;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Ateliex.Decisoes.Comerciais
 {
@@ -25,16 +16,16 @@ namespace Ateliex.Decisoes.Comerciais
     {
         private readonly IConsultaDePlanosComerciais consultaDePlanosComerciais;
 
-        private readonly IRepositorioDeModelos repositorioDeModelos;
+        private readonly IConsultaDeModelos consultaDeModelos;
 
         public PlanosComerciaisWindow(
             IConsultaDePlanosComerciais consultaDePlanosComerciais,
-            IRepositorioDeModelos repositorioDeModelos
+            IConsultaDeModelos consultaDeModelos
         )
         {
             this.consultaDePlanosComerciais = consultaDePlanosComerciais;
 
-            this.repositorioDeModelos = repositorioDeModelos;
+            this.consultaDeModelos = consultaDeModelos;
 
             InitializeComponent();
         }
@@ -82,9 +73,7 @@ namespace Ateliex.Decisoes.Comerciais
 
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)
         {
-            var consultaDeModelosWindow = new ConsultaDeModelosWindow(
-                repositorioDeModelos
-            );
+            var consultaDeModelosWindow = new ConsultaDeModelosWindow(consultaDeModelos);
 
             var selecteds = GetSelectedItens();
 
@@ -120,22 +109,22 @@ namespace Ateliex.Decisoes.Comerciais
         }
     }
 
-    public class PlanoComercialValidationRule : ValidationRule
-    {
-        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            PlanoComercialViewModel viewModel = (value as BindingGroup).Items[0] as PlanoComercialViewModel;
+    //public class PlanoComercialValidationRule : ValidationRule
+    //{
+    //    public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+    //    {
+    //        PlanoComercialViewModel viewModel = (value as BindingGroup).Items[0] as PlanoComercialViewModel;
 
-            if (viewModel.HasErrors)
-            {
-                return new ValidationResult(false, viewModel.Error);
-            }
-            else
-            {
-                return ValidationResult.ValidResult;
-            }
-        }
-    }
+    //        if (viewModel.HasErrors)
+    //        {
+    //            return new ValidationResult(false, viewModel.Error);
+    //        }
+    //        else
+    //        {
+    //            return ValidationResult.ValidResult;
+    //        }
+    //    }
+    //}
 
     public class ConvertItemToIndex : IValueConverter
     {

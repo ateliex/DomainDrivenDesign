@@ -192,7 +192,7 @@ namespace Ateliex.Decisoes.Comerciais
 
         public static ItemDePlanoComercialViewModel From(ItemDePlanoComercial itemDePlanoComercial, IRepositorioDePlanosComerciais repositorioDePlanosComerciais, IRepositorioDeModelos repositorioDeModelos)
         {
-            var modeloViewModel = ModeloViewModel.From(itemDePlanoComercial.Modelo, repositorioDeModelos);
+            var modeloViewModel = ModeloViewModel.From(itemDePlanoComercial.Modelo);
 
             var viewModel = new ItemDePlanoComercialViewModel
             {

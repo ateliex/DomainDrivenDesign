@@ -8,7 +8,7 @@ namespace System.PresentationModel
     /// <summary>
     /// Observable object with INotifyPropertyChanged implemented
     /// </summary>
-    public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo //, IDataErrorInfo
+    public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo, IDataErrorInfo
     {
         /// <summary>
         /// Sets the property.
@@ -65,6 +65,11 @@ namespace System.PresentationModel
 
         public ObjectState State { get; internal protected set; }
 
+        public void SetAsModified()
+        {
+            State = ObjectState.Modified;
+        }
+
         protected readonly Dictionary<string, IList<Exception>> validationErrors = new Dictionary<string, IList<Exception>>();
 
         protected void ClearErrors(string propertyName)
@@ -111,10 +116,10 @@ namespace System.PresentationModel
 
         public bool HasErrors
         {
-            get { return validationErrors.Count > 0; }
+            get { return !string.IsNullOrEmpty(Error) ||  validationErrors.Count > 0; }
         }
 
-        public string Error => "teste";
+        public string Error { get; set; }
 
         public string this[string columnName]
         {

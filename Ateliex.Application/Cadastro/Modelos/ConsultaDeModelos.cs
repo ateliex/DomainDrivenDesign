@@ -1,29 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ateliex.Cadastro.Modelos.ConsultaDeModelos
 {
     public interface IConsultaDeModelos
     {
-        Task<RespostaDeConsultaDeModelos> ConsultaModelos(ParametrosDeConsultaDeModelos parametros);
+        IObservable<Modelo[]> ConsultaModelos(SolicitacaoDeConsultaDeModelos solicitacao);
+
+        //Modelo ObtemModelo(CodigoDeModelo codigo);
     }
 
-    public class ParametrosDeConsultaDeModelos
+    public class SolicitacaoDeConsultaDeModelos
     {
-
-    }
-
-    public class RespostaDeConsultaDeModelos
-    {
-        public ItemDeConsultaDeModelos[] Items { get; set; }
-    }
-
-    public class ItemDeConsultaDeModelos
-    {
-        public string Codigo { get; set; }
-
         public string Nome { get; set; }
+
+        public long PrimeiraPagina { get; set; }
+
+        public long TamanhoDaPagina { get; set; }
     }
 }

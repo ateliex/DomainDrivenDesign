@@ -84,10 +84,12 @@
                 AutoGenerateColumns="False"
                 EnableRowVirtualization="True"
                 ItemsSource="{Binding}"
-                RowDetailsVisibilityMode="VisibleWhenSelected">
-                <!--<DataGrid.RowValidationRules>
-                    <local:ModeloValidationRule ValidationStep="UpdatedValue"/>
-                </DataGrid.RowValidationRules>-->
+                RowDetailsVisibilityMode="VisibleWhenSelected"
+                RowValidationErrorTemplate="{Binding Source={StaticResource rowValidationErrorTemplate}}">
+                <DataGrid.RowValidationRules>
+                    <DataErrorValidationRule ValidatesOnTargetUpdated="True" ValidationStep="UpdatedValue" />
+                    <!--<local:ModeloValidationRule ValidationStep="UpdatedValue" />-->
+                </DataGrid.RowValidationRules>
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         x:Name="codigoColumn"
@@ -104,6 +106,14 @@
                         Width="72"
                         Binding="{Binding CustoDeProducao, Mode=OneWay}"
                         Header="CP (R$)" />
+                    <DataGridTextColumn
+                        Width="72"
+                        Binding="{Binding State, Mode=OneWay}"
+                        Header="State" />
+                    <DataGridTextColumn
+                        Width="72"
+                        Binding="{Binding Version, Mode=OneWay}"
+                        Header="Version" />
                 </DataGrid.Columns>
             </DataGrid>
             <GridSplitter
@@ -129,7 +139,11 @@
                             AutoGenerateColumns="False"
                             EnableRowVirtualization="True"
                             ItemsSource="{Binding Source={StaticResource recursosViewSource}}"
-                            RowDetailsVisibilityMode="VisibleWhenSelected">
+                            RowDetailsVisibilityMode="VisibleWhenSelected"
+                            RowValidationErrorTemplate="{Binding Source={StaticResource rowValidationErrorTemplate}}">
+                            <DataGrid.RowValidationRules>
+                                <DataErrorValidationRule ValidatesOnTargetUpdated="True" ValidationStep="UpdatedValue" />
+                            </DataGrid.RowValidationRules>
                             <DataGrid.Columns>
                                 <DataGridComboBoxColumn
                                     Width="Auto"

@@ -39,6 +39,14 @@ namespace Ateliex
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
+            var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
+
+            //
+
+            DbModule.EnsureDatabaseCreatedAsync(serviceScopeFactory);
+
+            //
+
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 
             mainWindow.Show();

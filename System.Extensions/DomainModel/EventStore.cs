@@ -16,6 +16,20 @@ namespace System.DomainModel
             this.appendOnlyStore = appendOnlyStore;
         }
 
+        public IEnumerable<IEvent> GetAllEvents()
+        {
+            var records = appendOnlyStore.ReadRecords(0, long.MaxValue);
+
+            var events = new List<IEvent>();
+
+            foreach (var tapeRecord in records)
+            {
+                events.AddRange(DesserializeEvent(tapeRecord.Data));
+            }
+
+            return events;
+        }
+
         public EventStream LoadEventStream(IIdentity id)
         {
             throw new NotImplementedException();
@@ -31,7 +45,7 @@ namespace System.DomainModel
 
             foreach (var tapeRecord in records)
             {
-                stream.Events.Add(DesserializeEvent(tapeRecord.Data));
+                stream.Events.AddRange(DesserializeEvent(tapeRecord.Data));
 
                 stream.Version = tapeRecord.Version;
             }
@@ -39,11 +53,11 @@ namespace System.DomainModel
             return stream;
         }
 
-        private IEvent DesserializeEvent(byte[] data)
+        private IEvent[] DesserializeEvent(byte[] data)
         {
             using (var stream = new MemoryStream(data))
             {
-                return (IEvent)formatter.Deserialize(stream);
+                return (IEvent[])formatter.Deserialize(stream);
             }
         }
 

@@ -88,6 +88,14 @@
             Grid.ColumnSpan="3"
             IsMainMenu="True">
             <MenuItem Header="Sistema">
+                <MenuItem
+                    Name="popularBancoDeDadosDeLeituraMenuItem"
+                    Click="popularBancoDeDadosDeLeituraMenuItem_Click"
+                    Header="Popular Banco de Dados de Leitura" />
+                <MenuItem
+                    Name="limparBancoDeDadosDeLeituraMenuItem"
+                    Click="limparBancoDeDadosDeLeituraMenuItem_Click"
+                    Header="Limpar Banco de Dados de Leitura" />
                 <MenuItem Header="Trocar de Usuário" />
                 <MenuItem Header="Logoff" />
                 <Separator />

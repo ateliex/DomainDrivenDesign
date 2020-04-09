@@ -13,7 +13,7 @@ namespace System.PresentationModel
 
         public ICommand SaveAllCommand { get; }
 
-        private readonly IList<TViewModel> deletedItems;
+        protected readonly IList<TViewModel> deletedItems;
 
         public ViewModelCollection()
         {
@@ -88,6 +88,11 @@ namespace System.PresentationModel
             }
 
             return items;
+        }
+
+        protected virtual void OnItemSaved(TViewModel viewModel)
+        {
+            viewModel.State = ObjectState.Unchanged;
         }
 
         public delegate void StatusChangedHandler(string status);

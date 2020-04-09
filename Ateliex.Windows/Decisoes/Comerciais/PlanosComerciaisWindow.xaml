@@ -100,7 +100,7 @@
                     </Style>
                 </DataGrid.RowHeaderStyle>-->
                 <DataGrid.RowValidationRules>
-                    <local:PlanoComercialValidationRule ValidationStep="UpdatedValue" />
+                    <!--<local:PlanoComercialValidationRule ValidationStep="UpdatedValue" />-->
                 </DataGrid.RowValidationRules>
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn x:Name="idColumn" IsReadOnly="True" Header="Id" Binding="{Binding Id}"/>-->

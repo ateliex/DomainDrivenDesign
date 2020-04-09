@@ -213,7 +213,7 @@
         </Style.Triggers>
     </Style>
     <ControlTemplate x:Key="rowValidationErrorTemplate">
-        <Grid Margin="0,-2,0,-2" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=(Validation.Errors)[0].ErrorContent}">
+        <Grid Margin="2,0" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=(Validation.Errors)[0].ErrorContent}">
             <Ellipse
                 Width="{TemplateBinding FontSize}"
                 Height="{TemplateBinding FontSize}"

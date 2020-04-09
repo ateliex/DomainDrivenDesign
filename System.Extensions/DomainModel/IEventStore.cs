@@ -8,6 +8,8 @@ namespace System.DomainModel
 
         EventStream LoadEventStream(IIdentity id, long skipEvents, long maxCount = 0);
 
+        IEnumerable<IEvent> GetAllEvents();
+
         void AppendToStream(IIdentity id, long expectedVersion, ICollection<IEvent> events);
     }
 
