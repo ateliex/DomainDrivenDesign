@@ -10,6 +10,14 @@ namespace Ateliex
         {
             services.AddTransient<MainWindow>();
 
+            //
+
+            services.AddTransient<EventStoreViewModelCollection>();
+
+            services.AddTransient<EventStoreWindow>();
+
+            //
+
             services.AddTransient<ModelosViewModel>();
 
             services.AddTransient<ModelosWindow>();

@@ -16,79 +16,98 @@ namespace System.DomainModel
             this.appendOnlyStore = appendOnlyStore;
         }
 
-        public IEnumerable<IEvent> GetAllEvents()
+        public IEnumerable<Event> LoadAllEvents()
         {
             var records = appendOnlyStore.ReadRecords(0, long.MaxValue);
 
-            var events = new List<IEvent>();
+            var events = new List<Event>();
 
             foreach (var tapeRecord in records)
             {
-                events.AddRange(DesserializeEvent(tapeRecord.Data));
+                var @event = DesserializeEvent(tapeRecord.Data);
+
+                @event.Version = tapeRecord.Version;
+
+                @event.Date = tapeRecord.Date;
+
+                events.Add(@event);
             }
 
             return events;
         }
 
-        public EventStream LoadEventStream(IIdentity id)
+        public IEnumerable<Event> LoadEvents(IIdentity id)
         {
             throw new NotImplementedException();
         }
 
-        public EventStream LoadEventStream(IIdentity id, long skip, long take)
+        public IEnumerable<Event> LoadEvents(IIdentity id, long skip, long take)
         {
             var name = IdentityToString(id);
 
             var records = appendOnlyStore.ReadRecords(name, skip, take).ToList();
 
-            var stream = new EventStream();
+            var events = new List<Event>();
 
             foreach (var tapeRecord in records)
             {
-                stream.Events.AddRange(DesserializeEvent(tapeRecord.Data));
+                var @event = DesserializeEvent(tapeRecord.Data);
 
-                stream.Version = tapeRecord.Version;
+                @event.Version = tapeRecord.Version;
+
+                @event.Date = tapeRecord.Date;
+
+                events.Add(@event);
             }
 
-            return stream;
+            return events;
         }
 
-        private IEvent[] DesserializeEvent(byte[] data)
+        private Event DesserializeEvent(byte[] data)
         {
             using (var stream = new MemoryStream(data))
             {
-                return (IEvent[])formatter.Deserialize(stream);
+                return (Event)formatter.Deserialize(stream);
             }
         }
 
-        public void AppendToStream(IIdentity id, long originalVersion, ICollection<IEvent> events)
+        public void AppendToStream(IIdentity id, long originalVersion, IEnumerable<Event> events)
         {
-            if (events.Count == 0)
+            if (!events.Any())
             {
                 return;
             }
 
             var name = IdentityToString(id);
 
-            var data = SerializeEvent(events.ToArray());
+            var expectedVersion = originalVersion;
 
-            try
+            foreach (var @event in events)
             {
-                appendOnlyStore.Append(name, data, originalVersion);
-            }
-            catch (AppendOnlyStoreConcurrencyException ex)
-            {
-                var server = LoadEventStream(id, 0, long.MaxValue);
+                var data = SerializeEvent(@event);
 
-                throw OptimisticConcurrencyException.Create(server.Version, ex.ExpectedVersion, id, server.Events);
+                try
+                {
+                    appendOnlyStore.Append(name, @event.Date, data, expectedVersion);
+
+                    expectedVersion++;
+                }
+                catch (AppendOnlyStoreConcurrencyException ex)
+                {
+                    var serverEvents = LoadEvents(id, 0, long.MaxValue);
+
+                    var lastEvent = serverEvents.Last();
+
+                    throw OptimisticConcurrencyException.Create(lastEvent.Version, ex.ExpectedVersion, id, serverEvents);
+                }
             }
         }
 
-        private byte[] SerializeEvent(IEvent[] events)
+        private byte[] SerializeEvent(Event @event)
         {
             using (var stream = new MemoryStream())
             {
-                formatter.Serialize(stream, events);
+                formatter.Serialize(stream, @event);
 
                 return stream.ToArray();
             }
@@ -120,7 +139,7 @@ namespace System.DomainModel
 
     public class OptimisticConcurrencyException : Exception
     {
-        public static OptimisticConcurrencyException Create(long serverVersion, long expectedVersion, IIdentity id, IEnumerable<IEvent> serverEvents)
+        public static OptimisticConcurrencyException Create(long serverVersion, long expectedVersion, IIdentity id, IEnumerable<Event> serverEvents)
         {
             return new OptimisticConcurrencyException();
         }

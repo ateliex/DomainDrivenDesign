@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.DomainModel;
 
@@ -13,7 +14,7 @@ namespace Ateliex
             _connectionString = connectionString;
         }
 
-        public void Append(string name, byte[] data, long expectedVersion = -1)
+        public void Append(string name, DateTime date, byte[] data, long expectedVersion = -1)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -24,8 +25,8 @@ namespace Ateliex
                     var version = GetMaxVersion(name, expectedVersion, connection, transaction);
 
                     const string sql = @"
-INSERT INTO EventStore (Name, Version, Data)
-VALUES(@name, @version, @data)
+INSERT INTO EventStore (Name, Version, Date, Data)
+VALUES(@name, @version, @date, @data)
 ";
 
                     using (var command = new SqliteCommand(sql, connection, transaction))
@@ -33,6 +34,8 @@ VALUES(@name, @version, @data)
                         command.Parameters.AddWithValue("@name", name);
 
                         command.Parameters.AddWithValue("@version", version + 1);
+
+                        command.Parameters.AddWithValue("@date", date);
 
                         command.Parameters.AddWithValue("@data", data);
 
@@ -70,14 +73,14 @@ WHERE Name=@name
             }
         }
 
-        public IEnumerable<DataWithVersion> ReadRecords(string name, long afterVersion, long maxCount)
+        public IEnumerable<EventRecord> ReadRecords(string name, long afterVersion, long maxCount)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
 
                 const string sql = @"
-SELECT Data, Version FROM EventStore
+SELECT Version, Date, Data FROM EventStore
 WHERE Name = @name AND Version > @version
 ORDER BY Version
 LIMIT 0, @take
@@ -95,25 +98,27 @@ LIMIT 0, @take
                     {
                         while (reader.Read())
                         {
-                            var data = (byte[])reader["Data"];
-
                             var version = (long)reader["Version"];
 
-                            yield return new DataWithVersion(data, version);
+                            var date = (DateTime)reader["Date"];
+
+                            var data = (byte[])reader["Data"];
+
+                            yield return new EventRecord(name, version, date, data);
                         }
                     }
                 }
             }
         }
 
-        public IEnumerable<DataWithName> ReadRecords(long afterVersion, long maxCount)
+        public IEnumerable<EventRecord> ReadRecords(long afterVersion, long maxCount)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
 
                 const string sql = @"
-SELECT Data, Name FROM EventStore
+SELECT Name, Version, Date, Data FROM EventStore
 WHERE Version > @version
 ORDER BY Version
 LIMIT 0, @take
@@ -129,11 +134,17 @@ LIMIT 0, @take
                     {
                         while (reader.Read())
                         {
-                            var data = (byte[])reader["Data"];
-
                             var name = reader["Name"].ToString();
 
-                            yield return new DataWithName(data, name);
+                            var version = (long)reader["Version"];
+
+                            var dateString = reader["Date"].ToString();
+
+                            var date = Convert.ToDateTime(dateString);
+
+                            var data = (byte[])reader["Data"];
+
+                            yield return new EventRecord(name, version, date, data);
                         }
                     }
                 }

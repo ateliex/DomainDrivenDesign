@@ -75,9 +75,9 @@
             Grid.ColumnSpan="2"
             Margin="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <DataGrid
                 x:Name="modeloViewModelDataGrid"
@@ -112,8 +112,12 @@
                         Header="State" />
                     <DataGridTextColumn
                         Width="72"
-                        Binding="{Binding Version, Mode=OneWay}"
-                        Header="Version" />
+                        Binding="{Binding OriginalVersion, Mode=OneWay}"
+                        Header="OV" />
+                    <DataGridTextColumn
+                        Width="72"
+                        Binding="{Binding CurrentVersion, Mode=OneWay}"
+                        Header="CV" />
                 </DataGrid.Columns>
             </DataGrid>
             <GridSplitter
@@ -145,8 +149,12 @@
                                 <DataErrorValidationRule ValidatesOnTargetUpdated="True" ValidationStep="UpdatedValue" />
                             </DataGrid.RowValidationRules>
                             <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="72"
+                                    Binding="{Binding Id}"
+                                    Header="Id" />
                                 <DataGridComboBoxColumn
-                                    Width="Auto"
+                                    Width="72"
                                     Header="Tipo"
                                     ItemsSource="{Binding Source={system:EnumBindingSource {x:Type modelos:TipoDeRecurso}}, Mode=OneWay}"
                                     SelectedValueBinding="{Binding Tipo}" />
@@ -169,6 +177,10 @@
                                     Binding="{Binding CustoPorUnidade, Mode=OneWay, StringFormat={}{0:n2}}"
                                     CellStyle="{StaticResource RightStyle}"
                                     Header="C/U (R$)" />
+                                <DataGridTextColumn
+                                    Width="72"
+                                    Binding="{Binding State, Mode=OneWay}"
+                                    Header="State" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

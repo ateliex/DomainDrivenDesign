@@ -14,7 +14,7 @@ namespace Ateliex
             _connectionString = connectionString;
         }
 
-        public void Append(string name, byte[] data, long expectedVersion = -1)
+        public void Append(string name, DateTime date, byte[] data, long expectedVersion = -1)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -22,20 +22,22 @@ namespace Ateliex
 
                 using (var transaction = connection.BeginTransaction())
                 {
-                    var version = NewMethod(name, expectedVersion, connection, transaction);
+                    var version = GetMaxVersion(name, expectedVersion, connection, transaction);
 
                     const string sql = @"
-INSERT INTO 'EventStore' ('Name', 'Version', 'Data')
-VALUES(?name, ?version, ?data)
+INSERT INTO EventStore (Name, Version, Date, Data)
+VALUES(@name, @version, @date, @data)
 ";
 
                     using (var command = new SqlCommand(sql, connection, transaction))
                     {
-                        command.Parameters.AddWithValue("?name", name);
+                        command.Parameters.AddWithValue("@name", name);
 
-                        command.Parameters.AddWithValue("?version", version + 1);
+                        command.Parameters.AddWithValue("@version", version + 1);
 
-                        command.Parameters.AddWithValue("?data", data);
+                        command.Parameters.AddWithValue("@date", date);
+
+                        command.Parameters.AddWithValue("@data", data);
 
                         command.ExecuteNonQuery();
                     }
@@ -45,17 +47,17 @@ VALUES(?name, ?version, ?data)
             }
         }
 
-        private static long NewMethod(string name, long expectedVersion, SqlConnection connection, SqlTransaction transaction)
+        private static long GetMaxVersion(string name, long expectedVersion, SqlConnection connection, SqlTransaction transaction)
         {
             const string sql = @"
 SELECT COALESCE(MAX(Version),0)
-FROM 'EventStore'
-WHERE Name=?name
+FROM EventStore
+WHERE Name=@name
 ";
 
             using (var command = new SqlCommand(sql, connection, transaction))
             {
-                command.Parameters.AddWithValue("?name", name);
+                command.Parameters.AddWithValue("@name", name);
 
                 var version = (long)command.ExecuteScalar();
 
@@ -71,55 +73,90 @@ WHERE Name=?name
             }
         }
 
-        public IEnumerable<DataWithVersion> ReadRecords(string name, long afterVersion, long maxCount)
+        public IEnumerable<EventRecord> ReadRecords(string name, long afterVersion, long maxCount)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 const string sql = @"
-SELECT 'Data', 'Version', FROM 'EventStore'
-WHERE 'Name' = ?name AND 'Version' > ?version
-ORDER BY 'Version'
-LIMIT 0, ?take
+SELECT Version, Date, Data FROM EventStore
+WHERE Name = @name AND Version > @version
+ORDER BY Version
+LIMIT 0, @take
 ";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("?name", name);
+                    command.Parameters.AddWithValue("@name", name);
 
-                    command.Parameters.AddWithValue("?version", afterVersion);
+                    command.Parameters.AddWithValue("@version", afterVersion);
 
-                    command.Parameters.AddWithValue("?take", maxCount);
+                    command.Parameters.AddWithValue("@take", maxCount);
 
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var data = (byte[])reader["Data"];
-
                             var version = (long)reader["Version"];
 
-                            yield return new DataWithVersion(data, version);
+                            var date = (DateTime)reader["Date"];
+
+                            var data = (byte[])reader["Data"];
+
+                            yield return new EventRecord(name, version, date, data);
                         }
                     }
                 }
             }
         }
 
-        public IEnumerable<DataWithName> ReadRecords(long afterVersion, long maxCount)
+        public IEnumerable<EventRecord> ReadRecords(long afterVersion, long maxCount)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                const string sql = @"
+SELECT Name, Version, Date, Data FROM EventStore
+WHERE Version > @version
+ORDER BY Version
+LIMIT 0, @take
+";
+
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@version", afterVersion);
+
+                    command.Parameters.AddWithValue("@take", maxCount);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var name = reader["Name"].ToString();
+
+                            var version = (long)reader["Version"];
+
+                            var date = (DateTime)reader["Date"];
+
+                            var data = (byte[])reader["Data"];
+
+                            yield return new EventRecord(name, version, date, data);
+                        }
+                    }
+                }
+            }
         }
 
         public void Close()
         {
-            throw new NotImplementedException();
+
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

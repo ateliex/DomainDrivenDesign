@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Decisoes\Comerciais\" />
+    <Compile Remove="Decisoes\**" />
+    <EmbeddedResource Remove="Decisoes\**" />
+    <None Remove="Decisoes\**" />
   </ItemGroup>
 
   <ItemGroup>

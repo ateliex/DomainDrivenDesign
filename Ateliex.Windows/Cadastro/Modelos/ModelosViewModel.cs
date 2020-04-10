@@ -146,17 +146,12 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    eventStore.AppendToStream(modelo.Codigo, modelo.Version, modelo.Changes);
+                    eventStore.AppendToStream(modelo.Codigo, modelo.OriginalVersion, modelo.Changes);
 
                     foreach (var @event in modelo.Changes)
                     {
                         await mediator.Send(@event);
                     }
-
-                    if (viewModel.State != ObjectState.Deleted)
-                    {
-                        await mediator.Send(new VersionaModelo(modelo.Codigo));
-                    }                    
                 }
                 catch (EventStoreConcurrencyException ex)
                 {
@@ -188,7 +183,7 @@ namespace Ateliex.Cadastro.Modelos
             }
         }
 
-        private bool ConflictsWith(IEvent event1, IEvent event2)
+        private bool ConflictsWith(Event event1, Event event2)
         {
             return event1.GetType() == event2.GetType();
         }

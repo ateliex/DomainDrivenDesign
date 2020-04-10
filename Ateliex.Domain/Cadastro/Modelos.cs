@@ -69,7 +69,20 @@ namespace Ateliex.Cadastro.Modelos
 
         public void When(RecursoDeModeloAdicionado e)
         {
-            var recurso = new Recurso(this, e.Tipo, e.Descricao, e.Custo, e.Quantidade);
+            int nextId;
+
+            if (Recursos.Any())
+            {
+                var maxId = Recursos.Max(recurso => recurso.Id);
+
+                nextId = ++maxId;
+            }
+            else
+            {
+                nextId = 1;
+            }
+
+            var recurso = new Recurso(this, nextId, e.Tipo, e.Descricao, e.Custo, e.Quantidade);
 
             Recursos.Add(recurso);
 
@@ -107,10 +120,10 @@ namespace Ateliex.Cadastro.Modelos
 
         public Modelo()
         {
-
+            Recursos = new HashSet<Recurso>();
         }
 
-        public Modelo(IEnumerable<IEvent> events)
+        public Modelo(IEnumerable<Event> events)
         {
             Recursos = new HashSet<Recurso>();
 
@@ -173,9 +186,13 @@ namespace Ateliex.Cadastro.Modelos
             }
         }
 
-        public Recurso(Modelo modelo, TipoDeRecurso tipo, string descricao, decimal custo, int unidades)
+        public Recurso(Modelo modelo, int id, TipoDeRecurso tipo, string descricao, decimal custo, int unidades)
         {
             Modelo = modelo;
+
+            ModeloCodigo = modelo.Codigo.Valor;
+
+            Id = id;
 
             Tipo = tipo;
 
@@ -220,7 +237,7 @@ namespace Ateliex.Cadastro.Modelos
     }
 
     [Serializable]
-    public class ModeloCriado : IEvent
+    public class ModeloCriado : Event
     {
         public CodigoDeModelo Codigo { get; }
 
@@ -235,7 +252,7 @@ namespace Ateliex.Cadastro.Modelos
     }
 
     [Serializable]
-    public class CodigoDeModeloAlterado : IEvent
+    public class CodigoDeModeloAlterado : Event
     {
         public CodigoDeModelo Codigo { get; }
 
@@ -246,7 +263,7 @@ namespace Ateliex.Cadastro.Modelos
     }
 
     [Serializable]
-    public class NomeDeModeloAlterado : IEvent
+    public class NomeDeModeloAlterado : Event
     {
         public CodigoDeModelo Codigo { get; }
 
@@ -261,7 +278,7 @@ namespace Ateliex.Cadastro.Modelos
     }
 
     [Serializable]
-    public class RecursoDeModeloAdicionado : IEvent
+    public class RecursoDeModeloAdicionado : Event
     {
         public CodigoDeModelo Codigo { get; }
 
@@ -288,7 +305,7 @@ namespace Ateliex.Cadastro.Modelos
     }
 
     [Serializable]
-    public class DescricaoDeRecursoDeModeloAlterado : IEvent
+    public class DescricaoDeRecursoDeModeloAlterado : Event
     {
         public CodigoDeModelo Codigo { get; }
 
@@ -307,7 +324,7 @@ namespace Ateliex.Cadastro.Modelos
     }
 
     [Serializable]
-    public class ModeloExcluido : IEvent
+    public class ModeloExcluido : Event
     {
         public CodigoDeModelo Codigo { get; }
 

@@ -14,7 +14,6 @@ namespace Ateliex
 
         private readonly IMediator mediator;
 
-
         private readonly IEventStore eventStore;
 
         public MainWindow(IServiceProvider serviceProvider, IMediator mediator, IEventStore eventStore)
@@ -37,34 +36,26 @@ namespace Ateliex
 
         private void PlanejamentoComercialMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var planosComerciaisForm = ServiceProvider.GetRequiredService<PlanosComerciaisWindow>();
+            var planosComerciaisWindow = ServiceProvider.GetRequiredService<PlanosComerciaisWindow>();
 
-            planosComerciaisForm.Show();
+            planosComerciaisWindow.Show();
         }
 
         private async void popularBancoDeDadosDeLeituraMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var events = eventStore.GetAllEvents();
+            var events = eventStore.LoadAllEvents();
 
             foreach (var @event in events)
             {
-                await mediator.Send(@event);
+                try
+                {
+                    await mediator.Send(@event);
+                }
+                catch (Exception)
+                {
+
+                }                
             }
-
-            //var eventStreams = eventStore.GetAllEvents();
-
-            //foreach (var eventStream in eventStreams)
-            //{
-            //    foreach (var @event in eventStream.Events)
-            //    {
-            //        await mediator.Send(@event);
-            //    }
-
-            //    //if (viewModel.State != ObjectState.Deleted)
-            //    //{
-            //    //    await mediator.Send(new VersionaModelo(modelo.Codigo));
-            //    //}
-            //}
         }
 
         private async void limparBancoDeDadosDeLeituraMenuItem_Click(object sender, RoutedEventArgs e)
@@ -72,6 +63,13 @@ namespace Ateliex
             var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
 
             await DbModule.LimpaBancoDeDadosDeLeitura(serviceScopeFactory);
+        }
+
+        private void abrirEventStoreMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var eventStoreWindow = ServiceProvider.GetRequiredService<EventStoreWindow>();
+
+            eventStoreWindow.Show();
         }
     }
 }

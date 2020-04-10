@@ -96,6 +96,10 @@
                     Name="limparBancoDeDadosDeLeituraMenuItem"
                     Click="limparBancoDeDadosDeLeituraMenuItem_Click"
                     Header="Limpar Banco de Dados de Leitura" />
+                <MenuItem
+                    Name="abrirEventStoreMenuItem"
+                    Click="abrirEventStoreMenuItem_Click"
+                    Header="Event Store" />
                 <MenuItem Header="Trocar de Usuário" />
                 <MenuItem Header="Logoff" />
                 <Separator />

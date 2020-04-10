@@ -97,11 +97,11 @@ namespace Ateliex.Cadastro.Modelos
             {
                 await db.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // TODO: Tratar erros de persistência aqui.
 
-                throw new ApplicationException();
+                throw new ApplicationException($"Erro ao atualizar modelo '{modelo.Codigo}'.", ex);
             }
         }
 

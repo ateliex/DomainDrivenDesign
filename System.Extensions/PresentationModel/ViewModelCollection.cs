@@ -92,7 +92,7 @@ namespace System.PresentationModel
 
         protected virtual void OnItemSaved(TViewModel viewModel)
         {
-            viewModel.State = ObjectState.Unchanged;
+            viewModel.OnSave();
         }
 
         public delegate void StatusChangedHandler(string status);

@@ -4,33 +4,55 @@ namespace System.DomainModel
 {
     public abstract class Entity
     {
-        public long Version { get; set; }
+        public long OriginalVersion { get; set; }
 
-        public ICollection<IEvent> Changes { get; private set; }
+        public long CurrentVersion { get; set; }
+
+        public ICollection<Event> Changes { get; private set; }
 
         public Entity()
         {
-            Changes = new HashSet<IEvent>();
+            Changes = new HashSet<Event>();
         }
 
-        public void Replay(IEnumerable<IEvent> events)
+        public void Replay(IEnumerable<Event> events)
         {
             foreach (var @event in events)
             {
-                Mutate(@event);
+                Replay(@event);
             }
         }
 
-        public void Apply(IEvent e)
+        public void Replay(Event e)
+        {
+            Mutate(e);
+
+            OriginalVersion = e.Version;
+
+            CurrentVersion = OriginalVersion;
+        }
+
+        protected void Apply(Event e)
         {
             Changes.Add(e);
 
             Mutate(e);
+
+            CurrentVersion++;
+
+            e.Version = CurrentVersion;
+
+            e.Date = DateTime.Now;
         }
 
-        protected void Mutate(IEvent e)
+        protected void Mutate(Event e)
         {
             ((dynamic)this).When((dynamic)e);
+        }
+
+        public void OnSave()
+        {
+            OriginalVersion = CurrentVersion;
         }
     }
 }

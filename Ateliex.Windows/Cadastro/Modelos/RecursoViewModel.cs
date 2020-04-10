@@ -5,19 +5,14 @@ namespace Ateliex.Cadastro.Modelos
 {
     public class RecursoViewModel : ViewModel //, IEditableObject
     {
-        private ModeloViewModel aggregate;
+        private RecursosViewModel collection;
 
-        internal void SetAggregate(ModeloViewModel aggregate)
+        internal void SetCollection(RecursosViewModel collection)
         {
-            this.aggregate = aggregate;
+            this.collection = collection;
         }
 
         private Recurso recurso;
-
-        internal Recurso GetModel()
-        {
-            return recurso;
-        }
 
         internal void SetModel(Recurso recurso)
         {
@@ -26,6 +21,11 @@ namespace Ateliex.Cadastro.Modelos
             id = recurso.Id.ToString();
 
             descricao = recurso.Descricao;
+        }
+
+        internal Recurso GetModel()
+        {
+            return recurso;
         }
 
         public string ModeloCodigo
@@ -68,9 +68,9 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    aggregate.SetAsModified();
+                    collection.GetAggregate().SetAsModified();
 
-                    var modelo = aggregate.GetModel();
+                    var modelo = collection.GetAggregate().GetModel();
 
                     //
 
@@ -99,9 +99,9 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    aggregate.SetAsModified();
+                    collection.GetAggregate().SetAsModified();
 
-                    var modelo = aggregate.GetModel();
+                    var modelo = collection.GetAggregate().GetModel();
 
                     //
 
@@ -130,7 +130,7 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    var modelo = aggregate.GetModel();
+                    var modelo = collection.GetAggregate().GetModel();
 
                     //
 
@@ -142,7 +142,7 @@ namespace Ateliex.Cadastro.Modelos
 
                     OnPropertyChanged("CustoPorUnidade");
 
-                    aggregate.OnPropertyChanged("CustoDeProducao");
+                    collection.GetAggregate().OnPropertyChanged("CustoDeProducao");
 
                     ClearErrors("Valor");
                 }
@@ -165,7 +165,7 @@ namespace Ateliex.Cadastro.Modelos
 
                 try
                 {
-                    var modelo = aggregate.GetModel();
+                    var modelo = collection.GetAggregate().GetModel();
 
                     //
 
@@ -177,7 +177,7 @@ namespace Ateliex.Cadastro.Modelos
 
                     OnPropertyChanged("CustoPorUnidade");
 
-                    aggregate.OnPropertyChanged("CustoDeProducao");
+                    collection.GetAggregate().OnPropertyChanged("CustoDeProducao");
 
                     ClearErrors("Unidades");
                 }
@@ -203,6 +203,7 @@ namespace Ateliex.Cadastro.Modelos
             var viewModel = new RecursoViewModel
             {
                 recurso = recurso,
+                id = recurso.Id.ToString(),
                 tipo = recurso.Tipo,
                 descricao = recurso.Descricao,
                 custo = recurso.Custo.ToString(),

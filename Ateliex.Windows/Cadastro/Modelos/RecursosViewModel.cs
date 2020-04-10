@@ -8,14 +8,24 @@ namespace Ateliex.Cadastro.Modelos
 {
     public class RecursosViewModel : ViewModelCollection<RecursoViewModel>
     {
-        protected internal ModeloViewModel modeloViewModel;
+        protected ModeloViewModel modeloViewModel;
+
+        internal void SetAggregate(ModeloViewModel modeloViewModel)
+        {
+            this.modeloViewModel = modeloViewModel;
+        }
+
+        internal ModeloViewModel GetAggregate()
+        {
+            return modeloViewModel;
+        }
 
         public RecursosViewModel(IList<RecursoViewModel> list)
             : base(list)
         {
             foreach (var item in list)
             {
-                item.SetAggregate(modeloViewModel);
+                item.SetCollection(this);
             }
         }
 
@@ -24,8 +34,6 @@ namespace Ateliex.Cadastro.Modelos
             modeloViewModel.SetAsModified();
 
             var modelo = modeloViewModel.GetModel();
-
-            //var repositorioDeModelos = modeloViewModel.GetRepository();
 
             //
 
@@ -40,11 +48,9 @@ namespace Ateliex.Cadastro.Modelos
 
             modelo.RecursoAdicionado -= recursoAdicionadoHandler;
 
-            //repositorioDeModelos.Update(modelo);
-
             //
 
-            viewModel.SetAggregate(modeloViewModel);
+            viewModel.SetCollection(this);
 
             //viewModel.ModeloId = planoComercial.Id;
 
@@ -55,13 +61,9 @@ namespace Ateliex.Cadastro.Modelos
         {
             var modelo = modeloViewModel.GetModel();
 
-            //var repositorioDeModelos = modeloViewModel.GetRepository();
-
             //
 
             modelo.RemoveRecurso(viewModel.GetModel());
-
-            //repositorioDeModelos.Update(modelo);
 
             //
 

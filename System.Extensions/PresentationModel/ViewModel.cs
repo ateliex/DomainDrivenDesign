@@ -55,7 +55,7 @@ namespace System.PresentationModel
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-            if (State == ObjectState.Unchanged)
+            if (State == ObjectState.Unchanged && propertyName != "State" && propertyName != "OriginalVersion")
             {
                 State = ObjectState.Modified;
             }
@@ -63,11 +63,24 @@ namespace System.PresentationModel
             changed.Invoke(this, new PropertyChangedEventArgs("State"));
         }
 
-        public ObjectState State { get; internal protected set; }
+        private ObjectState state;
+        public ObjectState State
+        {
+            get { return state; }
+            internal protected set
+            {
+                SetProperty(ref state, value);
+            }
+        }
 
         public void SetAsModified()
         {
             State = ObjectState.Modified;
+        }
+
+        public virtual void OnSave()
+        {
+            State = ObjectState.Unchanged;
         }
 
         protected readonly Dictionary<string, IList<Exception>> validationErrors = new Dictionary<string, IList<Exception>>();
@@ -116,7 +129,7 @@ namespace System.PresentationModel
 
         public bool HasErrors
         {
-            get { return !string.IsNullOrEmpty(Error) ||  validationErrors.Count > 0; }
+            get { return !string.IsNullOrEmpty(Error) || validationErrors.Count > 0; }
         }
 
         public string Error { get; set; }

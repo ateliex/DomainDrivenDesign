@@ -4,20 +4,13 @@ namespace System.DomainModel
 {
     public interface IEventStore
     {
-        EventStream LoadEventStream(IIdentity id);
+        IEnumerable<Event> LoadAllEvents();
 
-        EventStream LoadEventStream(IIdentity id, long skipEvents, long maxCount = 0);
+        IEnumerable<Event> LoadEvents(IIdentity id);
 
-        IEnumerable<IEvent> GetAllEvents();
+        IEnumerable<Event> LoadEvents(IIdentity id, long skipEvents, long maxCount = 0);
 
-        void AppendToStream(IIdentity id, long expectedVersion, ICollection<IEvent> events);
-    }
-
-    public class EventStream
-    {
-        public long Version;
-
-        public List<IEvent> Events = new List<IEvent>();
+        void AppendToStream(IIdentity id, long expectedVersion, IEnumerable<Event> events);
     }
 
     public class EventStoreConcurrencyException : Exception
@@ -25,7 +18,7 @@ namespace System.DomainModel
         /// <summary>
         /// Actual Events.
         /// </summary>
-        public List<IEvent> StoreEvents { get; set; }
+        public Event[] StoreEvents { get; set; }
 
         /// <summary>
         /// Actual Version.

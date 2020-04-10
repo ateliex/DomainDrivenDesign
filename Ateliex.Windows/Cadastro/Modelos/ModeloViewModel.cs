@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.PresentationModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Ateliex.Cadastro.Modelos
 {
@@ -47,8 +42,6 @@ namespace Ateliex.Cadastro.Modelos
 
                     modelo.AlteraCodigo(codigo);
 
-                    //repositorioDeModelos.Update(modelo);
-
                     ClearErrors("Codigo");
                 }
                 catch (Exception ex)
@@ -73,9 +66,9 @@ namespace Ateliex.Cadastro.Modelos
                 {
                     modelo.AlteraNome(value);
 
-                    //repositorioDeModelos.Update(modelo);
-
                     ClearErrors("Nome");
+
+                    OnPropertyChanged("CurrentVersion");
                 }
                 catch (Exception ex)
                 {
@@ -89,9 +82,23 @@ namespace Ateliex.Cadastro.Modelos
             get { return modelo.CustoDeProducao; }
         }
 
-        public long Version
+        public long OriginalVersion
         {
-            get { return modelo.Version; }
+            get { return modelo.OriginalVersion; }
+        }
+
+        public long CurrentVersion
+        {
+            get { return modelo.CurrentVersion; }
+        }
+
+        public override void OnSave()
+        {
+            modelo.OnSave();
+
+            OnPropertyChanged("OriginalVersion");
+
+            base.OnSave();
         }
 
         public RecursosViewModel Recursos { get; set; }
@@ -100,24 +107,24 @@ namespace Ateliex.Cadastro.Modelos
         {
             Recursos = new RecursosViewModel(new List<RecursoViewModel>() { });
 
-            Recursos.modeloViewModel = this;
+            Recursos.SetAggregate(this);
         }
 
         public static ModeloViewModel From(Modelo modelo)
         {
             var recursos = modelo.Recursos.Select(p => RecursoViewModel.From(p)).ToList();
 
-            var recursosObservableCollection = new RecursosViewModel(recursos);
+            var recursosCollection = new RecursosViewModel(recursos);
 
             var viewModel = new ModeloViewModel
             {
                 modelo = modelo,
                 codigo = modelo.Codigo.Valor,
                 nome = modelo.Nome,
-                Recursos = recursosObservableCollection,
+                Recursos = recursosCollection,
             };
 
-            recursosObservableCollection.modeloViewModel = viewModel;
+            recursosCollection.SetAggregate(viewModel);
 
             return viewModel;
         }

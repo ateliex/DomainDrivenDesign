@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.DomainModel;
 
 namespace Ateliex
 {
     public class EventStoreDbContext : DbContext
     {
-        public DbSet<EventStoreTable> EventStore { get; set; }
+        public DbSet<EventRecord> EventStore { get; set; }
 
         public EventStoreDbContext()
         {
@@ -30,8 +31,14 @@ namespace Ateliex
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<EventStoreTable>()
+            modelBuilder.Entity<EventRecord>()
                 .HasKey(p => new { p.Name, p.Version });
+
+            modelBuilder.Entity<EventRecord>()
+                .Property(p => p.Date);
+
+            modelBuilder.Entity<EventRecord>()
+                .Property(p => p.Data);
 
             //modelBuilder.Entity<EventStoreTable>()
             //    .Property(p => p.Name)

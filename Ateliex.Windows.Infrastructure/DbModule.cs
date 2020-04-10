@@ -11,12 +11,12 @@ namespace Ateliex
         internal static IServiceCollection AddDbServices(this IServiceCollection services)
         {
             services.AddDbContext<AteliexDbContext>(options =>
-                options.UseSqlite(@"Data Source=Ateliex.db"), ServiceLifetime.Singleton);
+                options.UseSqlite(@"Data Source=Ateliex.db"), ServiceLifetime.Transient);
 
             //
 
             services.AddDbContext<EventStoreDbContext>(options =>
-                options.UseSqlite(@"Data Source=EventStore.db"), ServiceLifetime.Singleton);
+                options.UseSqlite(@"Data Source=EventStore.db"), ServiceLifetime.Transient);
 
             //
 
@@ -24,7 +24,7 @@ namespace Ateliex
 
             //
 
-            services.AddSingleton<ModelosDbService>();
+            services.AddTransient<ModelosDbService>();
 
             //
 
