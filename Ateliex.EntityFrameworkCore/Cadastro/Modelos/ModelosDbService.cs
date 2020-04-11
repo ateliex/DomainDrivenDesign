@@ -16,7 +16,7 @@ namespace Ateliex.Cadastro.Modelos
             this.db = db;
         }
 
-        public IObservable<Modelo[]> ConsultaModelos(SolicitacaoDeConsultaDeModelos solicitacao)
+        public IObservable<Modelo[]> ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
         {
             try
             {

@@ -34,7 +34,7 @@ namespace Ateliex
 
             services.AddHttpServices();
 
-            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(ModeloHandler).Assembly);
+            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(ModelosDataHandler).Assembly);
 
             //
 

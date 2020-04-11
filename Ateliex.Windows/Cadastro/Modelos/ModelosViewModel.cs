@@ -28,7 +28,7 @@ namespace Ateliex.Cadastro.Modelos
 
             this.eventStore = eventStore;
 
-            var @modelos = consultaDeModelos.ConsultaModelos(new SolicitacaoDeConsultaDeModelos());
+            var @modelos = consultaDeModelos.ConsultaModelos(new ParametrosDeConsultaDeModelos());
 
             @modelos.Subscribe(modelos => Load(modelos));
         }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Ateliex.Cadastro.Modelos
 {
-    public class ModeloHandler :
+    public class ModelosDataHandler :
         IRequestHandler<ModeloCriado>,
         IRequestHandler<NomeDeModeloAlterado>,
         IRequestHandler<RecursoDeModeloAdicionado>,
@@ -13,7 +13,7 @@ namespace Ateliex.Cadastro.Modelos
     {
         private readonly IRepositorioDeModelos repositorioDeModelos;
 
-        public ModeloHandler(IRepositorioDeModelos repositorioDeModelos)
+        public ModelosDataHandler(IRepositorioDeModelos repositorioDeModelos)
         {
             this.repositorioDeModelos = repositorioDeModelos;
         }

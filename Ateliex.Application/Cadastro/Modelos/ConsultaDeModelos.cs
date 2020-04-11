@@ -4,12 +4,10 @@ namespace Ateliex.Cadastro.Modelos.ConsultaDeModelos
 {
     public interface IConsultaDeModelos
     {
-        IObservable<Modelo[]> ConsultaModelos(SolicitacaoDeConsultaDeModelos solicitacao);
-
-        //Modelo ObtemModelo(CodigoDeModelo codigo);
+        IObservable<Modelo[]> ConsultaModelos(ParametrosDeConsultaDeModelos solicitacao);
     }
 
-    public class SolicitacaoDeConsultaDeModelos
+    public class ParametrosDeConsultaDeModelos
     {
         public string Nome { get; set; }
 

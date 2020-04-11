@@ -1,5 +1,4 @@
-﻿using Ateliex.Cadastro.Modelos.CadastroDeModelos;
-using Ateliex.Cadastro.Modelos.ConsultaDeModelos;
+﻿using Ateliex.Cadastro.Modelos.ConsultaDeModelos;
 using System;
 using System.Threading.Tasks;
 
@@ -18,19 +17,12 @@ namespace Ateliex.Cadastro.Modelos
             //this.http = http;
         }
 
-        public IObservable<Modelo[]> ConsultaModelos(SolicitacaoDeConsultaDeModelos solicitacao)
+        public IObservable<Modelo[]> ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
         {
-            var modelos = db.ConsultaModelos(solicitacao);
+            var modelos = db.ConsultaModelos(parametros);
 
             return modelos;
         }
-
-        //public Modelo[] ObtemModelos()
-        //{
-        //    var modelos = db.ObtemModelos();
-
-        //    return modelos;
-        //}
 
         public async Task<Modelo> ObtemModelo(CodigoDeModelo codigo)
         {
@@ -43,11 +35,6 @@ namespace Ateliex.Cadastro.Modelos
         {
             await db.Add(modelo);
 
-            var solicitacao = new SolicitacaoDeCadastroDeModelo
-            {
-                Nome = modelo.Nome
-            };
-
             //http.Add(modelo);
         }
 
@@ -55,7 +42,7 @@ namespace Ateliex.Cadastro.Modelos
         {
             await db.Update(modelo);
 
-            //http.AdicionaRecursoDeModelo(solicitacao);
+            //http.Update(solicitacao);
 
             // TODO.
         }
