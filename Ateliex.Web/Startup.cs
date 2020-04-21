@@ -19,6 +19,10 @@ namespace Ateliex
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSignalR();
+
+            services.AddInfrastructure();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +42,11 @@ namespace Ateliex
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseEndpoints(routes =>
+            {
+                routes.MapHub<EventHub>("/events");
             });
         }
     }

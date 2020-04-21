@@ -6,8 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cadastro\Modelos\" />
-    <Folder Include="Decisoes\Comerciais\" />
+    <Compile Remove="Cadastro\**" />
+    <Compile Remove="Decisoes\**" />
+    <EmbeddedResource Remove="Cadastro\**" />
+    <EmbeddedResource Remove="Decisoes\**" />
+    <None Remove="Cadastro\**" />
+    <None Remove="Decisoes\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -26,7 +26,7 @@ namespace System.DomainModel
 
         protected AggregateRoot()
         {
-
+            Changes = new HashSet<Event>();
         }
 
         public void Replay(IEnumerable<Event> events)

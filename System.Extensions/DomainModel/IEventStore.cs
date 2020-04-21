@@ -4,6 +4,8 @@ namespace System.DomainModel
 {
     public interface IEventStore
     {
+        event Action<Event> NewEvent;
+
         IEnumerable<Event> LoadAllEvents();
 
         IEnumerable<Event> LoadEvents(IIdentity id);

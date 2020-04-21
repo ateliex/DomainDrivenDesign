@@ -148,10 +148,10 @@ namespace Ateliex.Cadastro.Modelos
                 {
                     eventStore.AppendToStream(modelo.Codigo, modelo.OriginalVersion, modelo.Changes);
 
-                    foreach (var @event in modelo.Changes)
-                    {
-                        await mediator.Send(@event);
-                    }
+                    //foreach (var @event in modelo.Changes)
+                    //{
+                    //    await mediator.Send(@event);
+                    //}
                 }
                 catch (EventStoreConcurrencyException ex)
                 {

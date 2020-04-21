@@ -25,6 +25,23 @@ namespace Ateliex
             this.mediator = mediator;
 
             this.eventStore = eventStore;
+
+            eventStore.NewEvent += EventStore_NewEvent;
+        }
+
+        private async void EventStore_NewEvent(Event @event)
+        {
+            eventsListBox.Items.Add(@event);
+
+            try
+            {
+                await mediator.Send(@event);
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
 
         private void CadastroDeModelosMenuItem_Click(object sender, RoutedEventArgs e)

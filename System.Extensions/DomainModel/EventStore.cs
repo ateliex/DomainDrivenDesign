@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 
 namespace System.DomainModel
 {
@@ -11,9 +13,34 @@ namespace System.DomainModel
 
         private readonly BinaryFormatter formatter = new BinaryFormatter();
 
+        private readonly HubConnection connection;
+
+        public event Action<Event> NewEvent;
+
         public EventStore(IAppendOnlyStore appendOnlyStore)
         {
             this.appendOnlyStore = appendOnlyStore;
+
+            //this.hubConnectionBuilder = hubConnectionBuilder;
+
+            var hubConnectionBuilder = new HubConnectionBuilder();
+
+            connection = hubConnectionBuilder.WithUrl("https://localhost:5001/events").Build();
+
+            connection.On<string, DateTime, byte[], long>("Append", Append);
+
+            connection.StartAsync();
+        }
+
+        private void Append(string name, DateTime date, byte[] data, long expectedVersion)
+        {
+            var @event = DesserializeEvent(data);
+
+            @event.Version = expectedVersion;
+
+            @event.Date = date;
+
+            NewEvent?.Invoke(@event);
         }
 
         public IEnumerable<Event> LoadAllEvents()
@@ -85,6 +112,8 @@ namespace System.DomainModel
             foreach (var @event in events)
             {
                 var data = SerializeEvent(@event);
+
+                connection.SendAsync("Append", name, @event.Date, data, expectedVersion);
 
                 try
                 {

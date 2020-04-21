@@ -130,6 +130,15 @@
             TextAlignment="Center">
             Sistema de Ateliex
         </TextBlock>
+        <ListBox
+            x:Name="eventsListBox"
+            Grid.Row="2"
+            Grid.Column="2"
+            HorizontalAlignment="Stretch"
+            DisplayMemberPath="Date"
+            VerticalAlignment="Stretch">
+            
+        </ListBox>
         <StackPanel>
             <!--<Button
                     Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
