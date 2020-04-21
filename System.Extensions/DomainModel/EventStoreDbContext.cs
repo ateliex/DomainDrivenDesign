@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.DomainModel;
 
-namespace Ateliex
+namespace System.DomainModel
 {
     public class EventStoreDbContext : DbContext
     {

@@ -5,66 +5,10 @@ using System.Runtime.CompilerServices;
 
 namespace System.PresentationModel
 {
-    /// <summary>
-    /// Observable object with INotifyPropertyChanged implemented
-    /// </summary>
-    public abstract class ViewModel : INotifyPropertyChanged, INotifyDataErrorInfo, IDataErrorInfo
+    public abstract class ViewModel : ObservableObject, INotifyDataErrorInfo, IDataErrorInfo
     {
-        /// <summary>
-        /// Sets the property.
-        /// </summary>
-        /// <returns><c>true</c>, if property was set, <c>false</c> otherwise.</returns>
-        /// <param name="backingStore">Backing store.</param>
-        /// <param name="value">Value.</param>
-        /// <param name="propertyName">Property name.</param>
-        /// <param name="onChanged">On changed.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName]string propertyName = "", Action onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-            {
-                return false;
-            }
-
-            backingStore = value;
-
-            onChanged?.Invoke();
-
-            OnPropertyChanged(propertyName);
-
-            return true;
-        }
-
-        /// <summary>
-        /// Occurs when property changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Raises the property changed event.
-        /// </summary>
-        /// <param name="propertyName">Property name.</param>
-        public void OnPropertyChanged([CallerMemberName]string propertyName = "")
-        {
-            var changed = PropertyChanged;
-
-            if (changed == null)
-            {
-                return;
-            }
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-            if (State == ObjectState.Unchanged && propertyName != "State" && propertyName != "OriginalVersion")
-            {
-                State = ObjectState.Modified;
-            }
-
-            changed.Invoke(this, new PropertyChangedEventArgs("State"));
-        }
-
-        private ObjectState state;
-        public ObjectState State
+        private ModelState state;
+        public ModelState State
         {
             get { return state; }
             internal protected set
@@ -73,14 +17,26 @@ namespace System.PresentationModel
             }
         }
 
+        public override void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            base.OnPropertyChanged(propertyName);
+
+            //
+
+            if (State == ModelState.Unchanged && propertyName != "State" && propertyName != "OriginalVersion")
+            {                
+                State = ModelState.Modified;
+            }
+        }
+
         public void SetAsModified()
         {
-            State = ObjectState.Modified;
+            State = ModelState.Modified;
         }
 
         public virtual void OnSave()
         {
-            State = ObjectState.Unchanged;
+            State = ModelState.Unchanged;
         }
 
         protected readonly Dictionary<string, IList<Exception>> validationErrors = new Dictionary<string, IList<Exception>>();
@@ -163,13 +119,5 @@ namespace System.PresentationModel
 
             return validationErrors[propertyName];
         }
-    }
-
-    public enum ObjectState
-    {
-        Unchanged,
-        New,
-        Modified,
-        Deleted
     }
 }

@@ -161,6 +161,9 @@ namespace Ateliex
                 .Ignore(p => p.Changes);
 
             modelBuilder.Entity<Modelo>()
+                .Ignore(p => p.UserId);
+
+            modelBuilder.Entity<Modelo>()
                 .OwnsOne(p => p.Codigo);
                 //.HasData(
                 //    new CodigoDeModelo { ModeloId = "TM01" },

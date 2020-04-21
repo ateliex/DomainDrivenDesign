@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
-    <ProjectReference Include="..\Ateliex.Data.SqlClient\Ateliex.Data.SqlClient.csproj" />
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
     <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />

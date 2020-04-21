@@ -106,19 +106,19 @@ namespace Ateliex.Cadastro.Modelos
 
             //
 
-            var newItems = GetItemsBy(ObjectState.New);
+            var newItems = GetItemsBy(ModelState.New);
 
             await Task.WhenAll(newItems.Select(newItem => Save(newItem)));
 
             //
 
-            var modifiedItems = GetItemsBy(ObjectState.Modified);
+            var modifiedItems = GetItemsBy(ModelState.Modified);
 
             await Task.WhenAll(modifiedItems.Select(modifiedItem => Save(modifiedItem)));
 
             //
 
-            var deletedItems = GetItemsBy(ObjectState.Deleted);
+            var deletedItems = GetItemsBy(ModelState.Deleted);
 
             await Task.WhenAll(deletedItems.Select(deletedItem => Save(deletedItem)));
 

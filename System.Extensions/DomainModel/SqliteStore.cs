@@ -1,9 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
-using System;
 using System.Collections.Generic;
-using System.DomainModel;
 
-namespace Ateliex
+namespace System.DomainModel
 {
     public class SqliteStore : IAppendOnlyStore
     {

@@ -2,17 +2,31 @@
 
 namespace System.DomainModel
 {
-    public abstract class Entity
+    public abstract class AggregateRoot : Entity
     {
+
+        public string Id { get; internal protected set; }
+
+        public string UserId { get; private set; }
+
         public long OriginalVersion { get; set; }
 
         public long CurrentVersion { get; set; }
 
         public ICollection<Event> Changes { get; private set; }
 
-        public Entity()
+        public AggregateRoot(string id, string userId)
         {
+            Id = id;
+
+            UserId = userId;
+            
             Changes = new HashSet<Event>();
+        }
+
+        protected AggregateRoot()
+        {
+
         }
 
         public void Replay(IEnumerable<Event> events)

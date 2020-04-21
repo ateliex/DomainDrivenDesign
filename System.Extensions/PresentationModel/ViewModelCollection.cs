@@ -43,7 +43,7 @@ namespace System.PresentationModel
 
         protected virtual void OnAddNew(TViewModel viewModel)
         {
-            viewModel.State = ObjectState.New;
+            viewModel.State = ModelState.New;
         }
 
         public virtual async Task Save()
@@ -69,16 +69,16 @@ namespace System.PresentationModel
 
         protected virtual void OnRemoveItem(TViewModel viewModel)
         {
-            viewModel.State = ObjectState.Deleted;
+            viewModel.State = ModelState.Deleted;
 
             deletedItems.Add(viewModel);
         }
 
-        public IEnumerable<TViewModel> GetItemsBy(ObjectState state)
+        public IEnumerable<TViewModel> GetItemsBy(ModelState state)
         {
             IEnumerable<TViewModel> items;
 
-            if (state == ObjectState.Deleted)
+            if (state == ModelState.Deleted)
             {
                 items = this.deletedItems;
             }

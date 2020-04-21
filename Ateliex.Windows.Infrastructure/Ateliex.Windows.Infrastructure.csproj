@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ateliex.Application\Ateliex.Application.csproj" />
-    <ProjectReference Include="..\Ateliex.Data.Sqlite\Ateliex.Data.Sqlite.csproj" />
     <ProjectReference Include="..\Ateliex.Domain\Ateliex.Domain.csproj" />
     <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ateliex.Cadastro.Modelos
 {
-    public class Modelo : Entity
+    public class Modelo : AggregateRoot
     {
         public CodigoDeModelo Codigo { get; internal set; }
 
@@ -115,8 +115,6 @@ namespace Ateliex.Cadastro.Modelos
         {
 
         }
-
-        public string Id { get; internal set; }
 
         public Modelo()
         {
